@@ -11,7 +11,7 @@
 //  VERSION hochzählen, wenn Dateien dazukommen oder wegfallen
 //  (dann wird der Speicher komplett neu angelegt).
 // =====================================================================
-const VERSION = "klocheck-v3";
+const VERSION = "klocheck-v4";
 
 // Diese Dateien werden beim ersten Besuch sofort gespeichert:
 const DATEIEN = [

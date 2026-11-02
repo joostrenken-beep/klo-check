@@ -4,8 +4,8 @@ Web-App (PWA), mit der Bürgerinnen und Bürger in Sekunden prüfen, ob etwas in
 oder in den Abfluss darf – mit Erklärung, was im Kanal passiert, wohin es stattdessen
 gehört, und einer Pointe von Tropfi, dem Wassertropfen.
 
-> **Stand: Meilenstein 3 (Phase 1 komplett)** – Suche, Ergebnis-Karte, Barcode-Scan, Quiz,
-> Infoseite, Maskottchen Tropfi, offline nutzbar und auf dem Handy installierbar.
+> Suche, Ergebnis-Karte, Barcode-Scan, Quiz, Infoseite, Maskottchen Tropfi –
+> in fünf Sprachen, offline nutzbar und auf dem Handy installierbar.
 >
 > **Live:** <https://joostrenken-beep.github.io/klo-check/>
 
@@ -68,14 +68,11 @@ klo-check/  (Hauptordner des Repositorys)
 
 ---
 
-## 3. Produkte prüfen und ergänzen
+## 3. Produkte ansehen und ergänzen
 
-### Prüfen
-In der App unten auf **„Alle Produkte“** tippen. Dort steht jedes Produkt mit allen
-Texten zum Aufklappen, Filter „Nur ungeprüfte zeigen“, druckbar mit Strg+P.
-
-Wenn ein Eintrag fachlich in Ordnung ist, in `data/produkte.json` bei diesem Produkt
-`"geprueft": false` → `"geprueft": true` ändern. Das gelbe Schild „Entwurf“ verschwindet dann.
+### Übersicht
+In der Fußzeile der App auf **„Alle Produkte“** tippen. Dort steht jedes Produkt mit allen
+Texten zum Aufklappen – druckbar mit Strg+P.
 
 ### Ein Produkt hinzufügen
 Einen vorhandenen Block kopieren, hinter einen anderen setzen (Komma dazwischen!) und anpassen:
@@ -85,7 +82,7 @@ Einen vorhandenen Block kopieren, hinter einen anderen setzen (Komma dazwischen!
   "id": "glitzer",                     ← eindeutig, klein, ohne Leerzeichen/Umlaute
   "name": "Glitzer",                   ← so steht es auf der Karte
   "kategorie": "sonstiges",            ← hygiene | kueche | medikamente | chemie | haustier | sonstiges
-  "icon": "✨",                         ← ein Emoji (wird in Meilenstein 3 ggf. durch Grafik ersetzt)
+  "icon": "✨",                         ← ein Emoji
   "synonyme": ["Glitter", "Konfetti"], ← alles, was Leute eintippen könnten
   "ampel": "rot",                      ← gruen | gelb | rot
   "kanal": "Was im Kanal passiert …",
@@ -94,8 +91,7 @@ Einen vorhandenen Block kopieren, hinter einen anderen setzen (Komma dazwischen!
   "hinweis": "optional: praktischer Tipp",
   "gully": "optional: Warnung zum Straßengully",
   "spuelbar": false,                   ← true = Erklärkasten „Spülbar – stimmt das?“
-  "pointe": "Ein witziger Satz.",
-  "geprueft": false
+  "pointe": "Ein witziger Satz."
 }
 ```
 
@@ -150,8 +146,12 @@ unter `quiz.ausschluss`. Der persönliche Rekord wird nur im Browser des Geräts
 ## 6. Infoseite und Maskottchen
 
 - **Infoseite** (`#/info`): Weg vom Klo über Kanal, Pumpwerk und Kläranlage zurück in den Fluss,
-  Erklärung Trennsystem (Gully → Bach) und Kontakt. Die Texte der Stationen stehen in `js/info.js`,
-  die Zahlen („Wusstest du?“) und Kontaktdaten in `js/config.js` (`zahlen`, `kontakt`).
+  Erklärung Trennsystem (Gully → Bach) und Kontakt. Die Texte der Stationen stehen in
+  `i18n/<sprache>.json` (Einträge `info.…`), die Zahlen („Wusstest du?“) und Kontaktdaten in
+  `js/config.js` (`zahlen`, `kontakt`). Leere Kontaktangaben (`""`) werden nicht angezeigt.
+- **Impressum & Datenschutz** (Fußzeile): kurze Seiten in der App mit Verweis auf die Webseite
+  des Stadtwerks. Direkte Links auf die passenden Unterseiten trägt man in `config.js` unter
+  `rechtliches.impressumSeite` / `datenschutzSeite` ein.
 - **Tropfi** ist eine Zeichnung im Code (`js/tropfi.js`) mit den Stimmungen *froh, winkt, skeptisch,
   entsetzt, jubel, traurig*. Auf der Karte passt die Stimmung zur Ampel (grün → froh, gelb →
   skeptisch, rot → entsetzt). Farben in `config.js` unter `farben.tropfi…`.
@@ -176,9 +176,6 @@ Die App gibt es auf **Deutsch, Englisch, Türkisch, Russisch und Ukrainisch**. B
 wird die Sprache des Handys gewählt; oben rechts kann man jederzeit wechseln (die Wahl wird gemerkt).
 Direktlink in einer Sprache: `…/klo-check/?lang=tr`
 
-> ⚠️ Die Übersetzungen wurden mit KI erstellt. Bitte vor der Veröffentlichung von
-> Muttersprachlern gegenlesen lassen (z. B. Kolleginnen/Kollegen, Integrationsbeirat, Schulen).
-
 **Wo stehen die Texte?**
 
 | Was | Datei |
@@ -188,7 +185,7 @@ Direktlink in einer Sprache: `…/klo-check/?lang=tr`
 | Örtliches: Entsorgungswege, Abteilung, „Wusstest du?“ | `js/config.js` – je Text `{ de: "…", en: "…", … }` |
 
 **Wichtig:** Ampelfarbe und Entsorgungsweg stehen **nur** in der deutschen `produkte.json`.
-Übersetzungen können sie nicht verändern – fachlich geprüft wird also nur an einer Stelle.
+Übersetzungen können sie nicht verändern – die fachliche Aussage steht also nur an einer Stelle.
 Fehlt in einer Übersetzung ein Text, erscheint automatisch der deutsche.
 
 **Neues Produkt?** Zuerst in `produkte.json` anlegen (deutsch). Danach in jeder

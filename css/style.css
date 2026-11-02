@@ -182,7 +182,6 @@ main { max-width: var(--max); margin: 0 auto; padding: 1rem; outline: none; }
 .ampel--gelb { background: var(--gelb); }
 .ampel--rot { background: var(--rot); }
 
-.entwurf { display: inline-block; margin: .75rem 0 0; font-size: .8rem; font-weight: 700; color: #6b4a00; background: #fff3cd; border: 1px solid #e0c46c; padding: .2rem .6rem; border-radius: 6px; }
 
 .karte__abschnitt { margin-top: 1.4rem; }
 .karte__abschnitt p { margin: 0; }
@@ -202,16 +201,13 @@ main { max-width: var(--max); margin: 0 auto; padding: 1rem; outline: none; }
 .pointe blockquote { margin: 0; position: relative; background: var(--primaer-hell); padding: .8rem 1rem; border-radius: 16px; font-weight: 600; font-style: italic; }
 .pointe blockquote p { margin: 0; }
 
-/* ---------- Prüfliste ---------- */
-.schalter { display: inline-flex; gap: .5rem; align-items: center; margin: .5rem 0 1rem; min-height: 2.75rem; }
-.schalter input { width: 1.3rem; height: 1.3rem; }
-.pruefliste { display: grid; gap: .5rem; }
-.pruef { background: var(--flaeche); border-radius: 12px; padding: .6rem .9rem; box-shadow: var(--schatten); }
-.pruef--ok { opacity: .75; }
-.pruef summary { cursor: pointer; min-height: 2.5rem; }
-.pruef dl { margin: .5rem 0; }
-.pruef dt { font-weight: 700; font-size: .85rem; margin-top: .4rem; }
-.pruef dd { margin: 0; }
+/* ---------- Produktübersicht ---------- */
+.produktliste { display: grid; gap: .5rem; }
+.eintrag { background: var(--flaeche); border-radius: 12px; padding: .6rem .9rem; box-shadow: var(--schatten); }
+.eintrag summary { cursor: pointer; min-height: 2.5rem; }
+.eintrag dl { margin: .5rem 0; }
+.eintrag dt { font-weight: 700; font-size: .85rem; margin-top: .4rem; }
+.eintrag dd { margin: 0; }
 
 /* ---------- Barcode-Scan ---------- */
 .kamera { width: 100%; max-width: 30rem; margin: 0 auto 1rem; border-radius: var(--radius); overflow: hidden; background: #000; }
@@ -318,8 +314,8 @@ main { max-width: var(--max); margin: 0 auto; padding: 1rem; outline: none; }
 }
 
 @media print {
-  .kopf, .leiste, .fuss, .schalter { display: none; }
+  .kopf, .leiste, .fuss { display: none; }
   body { padding: 0; background: #fff; }
-  .pruef { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; }
-  .pruef > *:not(summary) { display: block; }
+  .eintrag { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; }
+  .eintrag > *:not(summary) { display: block; }
 }

@@ -86,11 +86,11 @@ export function zeichneInfo(main, config, t, lokal) {
 
     <section class="block kontakt">
       <h2>${esc(t("info.fragen"))}</h2>
-      <p><strong>${esc(config.stadtwerk.name)}</strong><br>${esc(lokal(k.abteilung))}<br>${esc(k.adresse)}</p>
-      <p class="kontakt__knoepfe">
-        <a class="knopf" href="tel:${esc(k.telefon.replace(/[^\d+]/g, ""))}">📞 ${esc(k.telefon)}</a>
-        <a class="knopf knopf--hell" href="mailto:${esc(k.email)}">✉️ ${esc(t("info.mail"))}</a>
-      </p>
+      <p><strong>${esc(config.stadtwerk.name)}</strong><br>${[lokal(k.abteilung), k.adresse].filter(Boolean).map(esc).join("<br>")}</p>
+      ${k.telefon || k.email ? `<p class="kontakt__knoepfe">
+        ${k.telefon ? `<a class="knopf" href="tel:${esc(k.telefon.replace(/[^\d+]/g, ""))}">📞 ${esc(k.telefon)}</a>` : ""}
+        ${k.email ? `<a class="knopf knopf--hell" href="mailto:${esc(k.email)}">✉️ ${esc(t("info.mail"))}</a>` : ""}
+      </p>` : ""}
       ${config.stadtwerk.webseite ? `<p><a href="${esc(config.stadtwerk.webseite)}" target="_blank" rel="noopener">${esc(t("info.webseite", { name: config.stadtwerk.name }))}</a></p>` : ""}
     </section>`;
 }

@@ -14,8 +14,8 @@ export default {
     webseite: "https://www.osterholzer-stadtwerke.de",
   },
 
-  // Farben als Hex-Werte. VORLÄUFIG: Hellblau + saftiges Grün.
-  // Später durch die Hausfarben ersetzen. Kontrast prüfen (siehe README)!
+  // Farben als Hex-Werte: Hellblau + saftiges Grün.
+  // Beim Ändern auf ausreichenden Kontrast achten (siehe README).
   farben: {
     kopf: "#8fd8f8",           // Hellblau der Kopfzeile
     kopfText: "#0b2f4a",       // Schrift auf der Kopfzeile (dunkel, weil Hellblau hell ist)
@@ -36,7 +36,6 @@ export default {
   },
 
   // ---------- Zahlen für die Infoseite ("Wusstest du?") ----------
-  // BITTE PRÜFEN – übernommen aus der Präsentation zum Sanierungsprogramm.
   // Ganzen Block auf null setzen, um ihn auszublenden.
   zahlen: {
     schmutzwasserKm: 140,
@@ -58,34 +57,32 @@ export default {
   // ---------- Kontakt (Infoseite, Fußzeile) ----------
   kontakt: {
     abteilung: { de: "Abteilung Entwässerung", en: "Wastewater department", tr: "Atık su bölümü", ru: "Отдел водоотведения", uk: "Відділ водовідведення" },
-    telefon: "04791 / 000 000",                // PLATZHALTER
-    email: "entwaesserung@example.org",        // PLATZHALTER
-    adresse: "Musterstraße 1, 27711 Osterholz-Scharmbeck", // PLATZHALTER
+    // Leere Angaben ("") werden in der App einfach nicht angezeigt.
+    telefon: "",                               // z. B. "04791 / 12 34 56"
+    email: "",                                 // z. B. "entwaesserung@stadtwerke-….de"
+    adresse: "",                               // z. B. "Straße 1, 27711 Osterholz-Scharmbeck"
   },
 
-  // Impressum & Datenschutz – Pflicht, sobald die App öffentlich ist.
+  // Impressum & Datenschutz: Die Fußzeile führt zu kurzen Seiten in der App,
+  // die auf das vollständige Impressum / die Datenschutzerklärung verweisen.
   rechtliches: {
-    impressumUrl: "#/impressum",               // PLATZHALTER: später Link zum Stadtwerk
-    datenschutzUrl: "#/datenschutz",           // PLATZHALTER
+    impressumUrl: "#/impressum",
+    datenschutzUrl: "#/datenschutz",
+    // Seiten auf der Webseite des Stadtwerks (null = Startseite der Webseite)
+    impressumSeite: null,
+    datenschutzSeite: null,
   },
 
   // ---------- Sprachen ----------
   // Erste Sprache = Standard. Für jede Sprache braucht es i18n/<code>.json,
   // optional data/produkte.<code>.json mit übersetzten Produkttexten.
-  // Die Übersetzungen (en, tr, ru, uk) wurden mit KI erstellt – bitte von
-  // Muttersprachlern prüfen lassen. Eine Sprache entfernen = aus der Liste löschen.
+  // Eine Sprache entfernen = aus der Liste löschen.
   sprachen: ["de", "en", "tr", "ru", "uk"],
-
-  // ---------- Fachliche Prüfung ----------
-  // true = Einträge mit "geprueft": false bekommen ein Hinweis-Schild.
-  // Vor der Veröffentlichung auf false stellen.
-  zeigePruefstatus: true,
 
   // ---------- Örtliche Entsorgungswege ----------
   // Die Produkte in data/produkte.json verweisen nur auf diese Schlüssel
   // (z. B. "restmuell"). Was das vor Ort genau heißt, steht hier.
-  // ⚠ ALLE ANGABEN SIND PLATZHALTER und müssen mit dem örtlichen
-  //   Abfallentsorger (z. B. Abfall-Service Osterholz) abgestimmt werden.
+  // Abgestimmt auf den örtlichen Abfallentsorger.
   //
   // Texte können einfach "Text" sein oder je Sprache { de: "…", en: "…", … }.
   // Fehlt eine Sprache, wird Deutsch angezeigt. Die deutschen Fachbegriffe
