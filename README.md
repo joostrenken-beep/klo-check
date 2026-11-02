@@ -4,8 +4,8 @@ Web-App (PWA), mit der Bürgerinnen und Bürger in Sekunden prüfen, ob etwas in
 oder in den Abfluss darf – mit Erklärung, was im Kanal passiert, wohin es stattdessen
 gehört, und einer Pointe von Tropfi, dem Wassertropfen.
 
-> **Stand: Meilenstein 1** – Datenbank-Entwurf, Suche, Ergebnis-Karte.
-> Barcode-Scan, Quiz, Design-Feinschliff, Offline-Fähigkeit und Infoseite folgen.
+> **Stand: Meilenstein 2** – Datenbank-Entwurf, Suche, Ergebnis-Karte, Barcode-Scan, Quiz.
+> Design-Feinschliff, Offline-Fähigkeit und Infoseite folgen in Meilenstein 3.
 
 ---
 
@@ -43,8 +43,14 @@ klo-check/  (Hauptordner des Repositorys)
 │   ├── app.js            ← Hauptprogramm: Seiten zeichnen
 │   ├── suche.js          ← unscharfe Suche mit Tippfehler-Toleranz
 │   ├── daten.js          ← lädt Produkte und Texte (inkl. Übersetzungen)
+│   ├── barcode.js        ← Kamera, Nachschlagen, Zuordnung
+│   ├── quiz.js           ← Quiz „Klo oder nicht Klo?“
+│   ├── helfer.js         ← kleine gemeinsame Hilfsfunktionen
 │   └── statistik.js      ← Phase 2, derzeit ausgeschaltet
-├── data/produkte.json    ← ⭐ die Produktdatenbank
+├── data/
+│   ├── produkte.json           ← ⭐ die Produktdatenbank
+│   └── barcode-zuordnung.json  ← ⭐ Regeln: gescannte Kategorie → unser Produkt
+├── vendor/html5-qrcode.min.js  ← Barcode-Bibliothek (Apache-2.0), lokal gespeichert
 └── i18n/de.json          ← Oberflächentexte (Knöpfe, Überschriften)
 ```
 
@@ -100,7 +106,36 @@ Abfuhrkalender) eintragen: `link: "https://…"`.
 
 ---
 
-## 4. Branding für ein anderes Stadtwerk
+## 4. Barcode-Scan
+
+**So funktioniert es:** Die Kamera liest den Strichcode (EAN). Die Nummer wird gleichzeitig bei
+Open Beauty Facts, Open Products Facts, Open Food Facts und Open Pet Food Facts nachgeschlagen –
+freie, von Freiwilligen gepflegte Datenbanken. Deren Kategorien (z. B. `en:baby-wipes`) und der
+Produktname werden mit den Regeln in `data/barcode-zuordnung.json` verglichen.
+Angezeigt wird **immer unsere eigene, geprüfte Karte** – nie Texte aus der fremden Datenbank.
+
+**Regel ergänzen:** Wenn ein Produkt falsch oder gar nicht zugeordnet wird, eine Zeile ergänzen:
+```json
+{ "muster": ["glitter", "glitzer"], "produkt": "glitzer" },
+```
+Die **erste** passende Regel gewinnt – spezielle Regeln also weiter oben einsortieren
+(z. B. „feuchtes Toilettenpapier“ vor „Toilettenpapier“, „Motoröl“ vor „Öl“).
+
+**Gut zu wissen:**
+- Die Kamera funktioniert nur über `https://` (also nach dem Veröffentlichen) oder `localhost`.
+- Viele Drogerie- und Haushaltsprodukte fehlen in den freien Datenbanken. Dann zeigt die App
+  ehrlich „kenne ich nicht“ und bietet Kategorien und Suche an. Jeder kann Produkte dort
+  selbst eintragen – die App verlinkt darauf.
+- Datenschutz: Das Kamerabild verlässt das Handy nicht, nur die Barcode-Nummer wird gesendet.
+- Ohne Kamera kann man die Ziffern unter dem Strichcode auch eintippen.
+
+## 5. Quiz
+
+10 zufällige Fragen (2 grüne, 2 gelbe, 6 rote), mit Erklärung nach jeder Antwort.
+Produkte, die nicht ins Quiz sollen (z. B. für Schulklassen), stehen in `js/config.js`
+unter `quiz.ausschluss`. Der persönliche Rekord wird nur im Browser des Geräts gespeichert.
+
+## 6. Branding für ein anderes Stadtwerk
 
 Alles in `js/config.js`: Name, Farben, Logo (Datei in `img/` legen und Pfad eintragen),
 Kontakt, Links zu Impressum und Datenschutz, Entsorgungswege.
@@ -113,7 +148,7 @@ Farben – worauf achten?
 
 ---
 
-## 5. Weitere Sprachen
+## 7. Weitere Sprachen
 
 1. `i18n/de.json` kopieren nach z. B. `i18n/en.json` und die Texte rechts übersetzen.
 2. Optional `data/produkte.en.json` anlegen – nur die Texte, Ampel und Entsorgungsweg
@@ -126,7 +161,7 @@ Farben – worauf achten?
 
 ---
 
-## 6. Veröffentlichen (GitHub Pages)
+## 8. Veröffentlichen (GitHub Pages)
 
 Folgt ausführlich in Meilenstein 3.
 

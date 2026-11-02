@@ -9,19 +9,21 @@ import config from "./config.js";
 import { ladeTexte, ladeProdukte } from "./daten.js";
 import { baueIndex, suche } from "./suche.js";
 import { zaehleAufruf } from "./statistik.js";
+import { esc, AMPEL_SYMBOL, teile } from "./helfer.js";
+import { starteKamera, stoppeKamera, schlageNach, ordneZu, anzeigeName, istGueltigerCode, eintragenLink } from "./barcode.js";
+import { zeichneQuiz } from "./quiz.js";
 
 const main = document.getElementById("inhalt");
 let T = {};          // Oberflächentexte
 let DATEN = null;    // { kategorien, produkte }
 let INDEX = [];      // Suchindex
 let letzteSuche = ""; // damit die Suche nach "Zurück" erhalten bleibt
+let ZUORDNUNG = null; // Barcode-Regeln, werden erst beim ersten Scan geladen
+let scanHinweis = null; // { id, name, code } – Banner über der Karte nach einem Scan
 
 const BELIEBT = ["feuchttuecher", "bratfett", "tabletten", "wattestaebchen", "katzenstreu", "zigaretten", "speiseoel", "toilettenpapier"];
-const AMPEL_SYMBOL = { gruen: "✓", gelb: "!", rot: "✕" };
 
 // ---------- kleine Helfer ----------
-/** Text sicher in HTML einsetzen (verhindert, dass Daten Code einschleusen). */
-const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 /** Übersetzung holen, {n} ersetzen */
 const t = (key, werte = {}) => (T[key] ?? key).replace(/\{(\w+)\}/g, (_, k) => werte[k] ?? "");
 const produktById = (id) => DATEN.produkte.find((p) => p.id === id);
@@ -78,12 +80,15 @@ function uebersetzeStatischeTexte() {
 function zeichne() {
   const [, seite = "", wert = ""] = location.hash.split("/");
   const id = decodeURIComponent(wert);
+  stoppeKamera(); // Kamera immer ausschalten, wenn man die Seite wechselt
   const ansichten = {
     "": zeichneStart,
     produkt: () => zeichneProdukt(id),
     kategorien: zeichneKategorien,
     kategorie: () => zeichneKategorie(id),
     alle: zeichneAlle,
+    scan: zeichneScan,
+    quiz: () => zeichneQuiz({ main, produkte: DATEN.produkte, t, ausschluss: config.quiz?.ausschluss || [] }),
     impressum: () => zeichnePlatzhalter("fuss.impressum", "platzhalter.impressum"),
     datenschutz: () => zeichnePlatzhalter("fuss.datenschutz", "platzhalter.datenschutz"),
   };
@@ -96,7 +101,7 @@ function zeichne() {
 }
 
 function markiereNavigation(seite) {
-  const aktiv = { "": "suche", produkt: "suche", kategorien: "kategorien", kategorie: "kategorien", alle: "alle" }[seite];
+  const aktiv = { "": "suche", produkt: "suche", kategorien: "kategorien", kategorie: "kategorien", scan: "scan", quiz: "quiz" }[seite];
   document.querySelectorAll("[data-nav]").forEach((a) => {
     if (a.dataset.nav === aktiv) a.setAttribute("aria-current", "page");
     else a.removeAttribute("aria-current");
@@ -193,12 +198,16 @@ function zeichneProdukt(id) {
     return;
   }
   zaehleAufruf(p.id);
+  const vomScan = scanHinweis && scanHinweis.id === p.id ? scanHinweis : null;
+  scanHinweis = null;
   const gruen = p.ampel === "gruen";
   const ziele = p.wohin.map((key) => config.ziele[key]).filter(Boolean);
 
   main.innerHTML = `
     <article class="karte karte--${p.ampel}" aria-labelledby="karte-titel">
       <button class="zurueck" type="button" id="zurueck">← ${esc(t("karte.zurueck"))}</button>
+      ${vomScan ? `<p class="scanbanner"><span aria-hidden="true">📷</span> ${esc(t("scan.erkannt", { name: vomScan.name || vomScan.code }))}
+        <a href="#/scan">${esc(t("scan.nochmal"))}</a></p>` : ""}
 
       <header class="karte__kopf">
         <span class="karte__icon" aria-hidden="true">${p.icon}</span>
@@ -241,15 +250,91 @@ function zeichneProdukt(id) {
   document.getElementById("zurueck").addEventListener("click", () => {
     if (history.length > 1) history.back(); else location.hash = "#/";
   });
-  document.getElementById("teilen").addEventListener("click", () => teile(`${t("app.titel")}: ${p.name} – ${t(`ampel.${p.ampel}`)}`));
+  document.getElementById("teilen").addEventListener("click", () => teile({
+    titel: t("app.titel"),
+    text: `${t("app.titel")}: ${p.name} – ${t(`ampel.${p.ampel}`)}`,
+    kopiertMeldung: t("teilen.kopiert"),
+  }));
 }
 
-async function teile(text) {
-  const url = location.href;
+// ---------- Ansicht: Barcode-Scan ----------
+function zeichneScan() {
+  main.innerHTML = `
+    <h1>${esc(t("scan.titel"))}</h1>
+    <p>${esc(t("scan.intro"))}</p>
+    <div id="kamera" class="kamera" aria-label="${esc(t("scan.kameraLabel"))}"></div>
+    <p><button class="knopf knopf--gross" id="kamera-start">📷 ${esc(t("scan.starten"))}</button></p>
+    <form id="code-form" class="code-form" autocomplete="off">
+      <label for="code-feld">${esc(t("scan.manuell"))}</label>
+      <div class="suche__zeile">
+        <input id="code-feld" inputmode="numeric" pattern="[0-9]*" maxlength="13" placeholder="4006…">
+        <button class="knopf" type="submit">${esc(t("suche.knopf"))}</button>
+      </div>
+    </form>
+    <div id="scan-status" aria-live="polite"></div>
+    <p class="klein">${esc(t("scan.datenschutz"))}</p>`;
+
+  const status = document.getElementById("scan-status");
+  const knopf = document.getElementById("kamera-start");
+  knopf.addEventListener("click", async () => {
+    knopf.hidden = true;
+    status.innerHTML = "";
+    try {
+      await starteKamera("kamera", verarbeiteCode);
+    } catch (e) {
+      console.warn(e);
+      knopf.hidden = false;
+      status.innerHTML = `<p class="hinweisbox">${esc(t("scan.keineKamera"))}</p>`;
+    }
+  });
+  document.getElementById("code-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const code = document.getElementById("code-feld").value.replace(/\D/g, "");
+    if (!istGueltigerCode(code.length === 12 ? "0" + code : code)) {
+      status.innerHTML = `<p class="hinweisbox">${esc(t("scan.ungueltig"))}</p>`;
+      return;
+    }
+    verarbeiteCode(code.length === 12 ? "0" + code : code);
+  });
+}
+
+async function verarbeiteCode(code) {
+  const status = document.getElementById("scan-status");
+  if (!status) return; // Seite wurde inzwischen verlassen
+  document.getElementById("kamera-start").hidden = false;
+  status.innerHTML = `<p class="laden">${esc(t("scan.suche", { code }))}</p>`;
+
+  if (!navigator.onLine) {
+    status.innerHTML = `<p class="hinweisbox">${esc(t("scan.offline"))}</p>`;
+    return;
+  }
+  let fremd;
   try {
-    if (navigator.share) await navigator.share({ title: t("app.titel"), text, url });
-    else { await navigator.clipboard.writeText(`${text} ${url}`); alert("Link kopiert!"); }
-  } catch { /* Teilen abgebrochen */ }
+    ZUORDNUNG ??= await (await fetch("data/barcode-zuordnung.json")).json();
+    fremd = await schlageNach(code);
+  } catch {
+    status.innerHTML = `<p class="hinweisbox">${esc(t("scan.offline"))}</p>`;
+    return;
+  }
+  const name = fremd ? anzeigeName(fremd) : "";
+  const id = fremd ? ordneZu(fremd, ZUORDNUNG) : null;
+
+  if (id && produktById(id)) {
+    scanHinweis = { id, name, code };
+    location.hash = `#/produkt/${id}`;
+    return;
+  }
+  // Unbekannt: ehrlich sagen, Kategorien anbieten, Suche vorbefüllen
+  status.innerHTML = `
+    <div class="hinweisbox">
+      <p><strong>${esc(fremd ? t("scan.nichtZuordenbar", { name }) : t("scan.unbekannt", { code }))}</strong></p>
+      <p>${esc(t("scan.waehleKategorie"))}</p>
+    </div>
+    ${kategorieKachelnHtml()}
+    <p><a class="knopf knopf--hell" href="#/" id="scan-suche">🔍 ${esc(t("scan.selbstSuchen"))}</a></p>
+    ${faustregelHtml()}
+    ${fremd ? "" : `<p class="klein">${esc(t("scan.eintragen"))} <a href="${esc(eintragenLink(code))}" target="_blank" rel="noopener">Open Products Facts</a></p>`}`;
+  document.getElementById("scan-suche").addEventListener("click", () => { letzteSuche = name; });
 }
 
 // ---------- Ansicht: Kategorien ----------

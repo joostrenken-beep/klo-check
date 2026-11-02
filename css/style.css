@@ -25,6 +25,7 @@
 }
 
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html { -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
@@ -185,6 +186,56 @@ main { max-width: var(--max); margin: 0 auto; padding: 1rem; outline: none; }
 .pruef dt { font-weight: 700; font-size: .85rem; margin-top: .4rem; }
 .pruef dd { margin: 0; }
 
+/* ---------- Barcode-Scan ---------- */
+.kamera { width: 100%; max-width: 30rem; margin: 0 auto 1rem; border-radius: var(--radius); overflow: hidden; background: #000; }
+.kamera:empty { display: none; }
+.kamera video { display: block; width: 100% !important; }
+.code-form { margin: 1.25rem 0; }
+.code-form label { display: block; font-weight: 600; margin-bottom: .4rem; }
+#code-feld { flex: 1; min-width: 0; font: inherit; font-size: 1.15rem; letter-spacing: .08em; padding: .8rem 1rem; border: 2px solid var(--rahmen); border-radius: var(--radius); background: var(--flaeche); color: var(--text); }
+#code-feld:focus { border-color: var(--primaer); outline: none; box-shadow: 0 0 0 3px var(--primaer-hell); }
+#scan-status .kacheln { margin: 1rem 0; }
+.scanbanner { background: var(--akzent-hell); border-left: 5px solid var(--akzent); padding: .6rem .8rem; border-radius: 10px; margin: .25rem 0 1rem; }
+.scanbanner a { white-space: nowrap; font-weight: 600; }
+
+/* ---------- Quiz ---------- */
+.knopf--gross { width: 100%; min-height: 3.5rem; font-size: 1.1rem; }
+.knopfreihe { display: grid; gap: .6rem; margin-top: 1.5rem; }
+.quiz--start, .quiz--ergebnis { text-align: center; }
+.quiz--ergebnis .liste { text-align: left; }
+.quiz__tropfen { font-size: 4rem; display: block; margin-top: 1rem; }
+.quiz__urteil { font-size: 1.15rem; font-weight: 600; }
+.quiz__kopf { display: flex; justify-content: space-between; font-weight: 700; color: var(--text-leise); }
+.fortschritt { height: .6rem; background: var(--primaer-hell); border-radius: 999px; margin: .4rem 0 1.25rem; overflow: hidden; }
+.fortschritt span { display: block; height: 100%; background: var(--akzent); border-radius: 999px; transition: width .3s; }
+.quiz__produkt { text-align: center; background: var(--flaeche); border-radius: var(--radius); box-shadow: var(--schatten); padding: 1.25rem 1rem; }
+.quiz__icon { font-size: 4rem; display: block; }
+.quiz__produkt h1 { margin: .25rem 0 0; }
+.quiz__name { display: block; }
+.quiz__frage { display: block; font-size: 1.1rem; font-weight: 600; color: var(--text-leise); margin-top: .3rem; }
+.quiz__antworten { display: grid; gap: .6rem; margin: 1.25rem 0; }
+.antwort {
+  display: flex; align-items: center; gap: .75rem;
+  min-height: 3.75rem; padding: .6rem 1rem;
+  font: inherit; font-size: 1.1rem; font-weight: 700; text-align: left;
+  background: var(--flaeche); color: var(--text);
+  border: 3px solid var(--rahmen); border-radius: var(--radius); cursor: pointer;
+}
+.antwort__symbol { display: grid; place-items: center; flex: none; width: 2.4rem; height: 2.4rem; border-radius: 50%; color: #fff; font-size: 1.3rem; }
+.antwort--gruen .antwort__symbol { background: var(--gruen); }
+.antwort--gelb .antwort__symbol { background: var(--gelb); }
+.antwort--rot .antwort__symbol { background: var(--rot); }
+.antwort:disabled { cursor: default; opacity: .55; }
+.antwort--richtig:disabled { opacity: 1; border-color: var(--gruen); background: #e8f5e9; }
+.antwort--richtig::after { content: "✓ richtig"; margin-left: auto; font-size: .85rem; color: var(--gruen); }
+.antwort--falsch:disabled { opacity: 1; border-color: var(--rot); background: #fdecea; }
+.antwort--falsch::after { content: "✕ deine Antwort"; margin-left: auto; font-size: .85rem; color: var(--rot); }
+.feedback { border-radius: var(--radius); padding: 1rem; background: var(--flaeche); box-shadow: var(--schatten); border-top: 6px solid var(--rahmen); }
+.feedback--ja { border-top-color: var(--gruen); }
+.feedback--nein { border-top-color: var(--rot); }
+.feedback__titel { font-size: 1.25rem; font-weight: 800; margin-top: 0; }
+.feedback__pointe { font-style: italic; font-weight: 600; }
+
 /* ---------- Navigation unten (Daumen-freundlich) ---------- */
 .leiste {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 5;
@@ -192,7 +243,7 @@ main { max-width: var(--max); margin: 0 auto; padding: 1rem; outline: none; }
   background: var(--flaeche); border-top: 1px solid var(--rahmen);
   padding: .3rem 0 calc(.3rem + env(safe-area-inset-bottom));
 }
-.leiste a { flex: 1; display: flex; flex-direction: column; align-items: center; gap: .1rem; padding: .35rem; min-height: 3.25rem; font-size: .8rem; color: var(--text-leise); text-decoration: none; }
+.leiste a { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: .1rem; padding: .35rem; min-height: 3.25rem; font-size: .8rem; color: var(--text-leise); text-decoration: none; }
 .leiste a span:first-child { font-size: 1.35rem; }
 .leiste a[aria-current="page"] { color: var(--primaer); font-weight: 700; box-shadow: inset 0 4px 0 var(--akzent); }
 .chip:hover, .kachel:hover { border-color: var(--akzent); }

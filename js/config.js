@@ -77,6 +77,13 @@ export default {
     waschanlage:{ icon: "🚗", titel: "Autowaschanlage",     text: "Dort wird das Wasser über einen Ölabscheider gereinigt." },
   },
 
+  // ---------- Quiz ----------
+  quiz: {
+    // Diese Produkte kommen im Quiz nicht vor (z. B. mit Blick auf Schulklassen).
+    // IDs stehen in data/produkte.json bzw. auf der Seite "Alle Produkte".
+    ausschluss: ["kondome", "erbrochenes", "hormone", "spritzen", "lebende-tiere", "menstruationstasse"],
+  },
+
   // ---------- Phase 2 (noch ausgeschaltet) ----------
   phase2: {
     // URL des Cloudflare Workers für die Foto-Erkennung. null = Funktion aus.
