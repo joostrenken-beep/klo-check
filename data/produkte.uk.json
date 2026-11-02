@@ -1,5 +1,4 @@
 {
-  "_hinweis": "Übersetzung mit KI erstellt – bitte von Muttersprachlern prüfen lassen. Nur Texte; Ampel und Entsorgungsweg kommen immer aus produkte.json.",
   "kategorien": { "hygiene": "Ванна та гігієна", "kueche": "Кухня", "medikamente": "Ліки", "chemie": "Хімія та прибирання", "haustier": "Домашні тварини", "sonstiges": "Різне" },
   "produkte": {
     "toilettenpapier": { "name": "Туалетний папір", "synonyme": ["папір", "туалетка", "рулон"], "kanal": "Туалетний папір зроблений так, щоб розпадатися у воді за секунди. Дорогою до очисних споруд він розпадається на тонкі волокна.", "hinweis": "Картонна втулка – у макулатуру.", "pointe": "VIP серед гостей унітазу – завжди у списку запрошених." },

@@ -1,5 +1,4 @@
 {
-  "_hinweis": "Übersetzung mit KI erstellt – bitte von Muttersprachlern prüfen lassen. Nur Texte; Ampel und Entsorgungsweg kommen immer aus produkte.json.",
   "kategorien": { "hygiene": "Banyo ve hijyen", "kueche": "Mutfak", "medikamente": "İlaçlar", "chemie": "Kimyasallar ve temizlik", "haustier": "Evcil hayvan", "sonstiges": "Diğer" },
   "produkte": {
     "toilettenpapier": { "name": "Tuvalet kâğıdı", "synonyme": ["tuvalet kağıdı", "kağıt", "rulo"], "kanal": "Tuvalet kâğıdı suda saniyeler içinde dağılacak şekilde yapılır. Arıtma tesisine giderken ince liflere ayrılır.", "hinweis": "Ortadaki karton rulo atık kâğıda gider.", "pointe": "Tuvalet misafirlerinin VIP’i – her davetli listesinde var." },

@@ -1,5 +1,4 @@
 {
-  "_hinweis": "Übersetzung mit KI erstellt – bitte von Muttersprachlern prüfen lassen. Nur Texte; Ampel und Entsorgungsweg kommen immer aus produkte.json.",
   "kategorien": { "hygiene": "Bathroom & hygiene", "kueche": "Kitchen", "medikamente": "Medicines", "chemie": "Chemicals & cleaning", "haustier": "Pets", "sonstiges": "Other" },
   "produkte": {
     "toilettenpapier": { "name": "Toilet paper", "synonyme": ["loo roll", "toilet roll", "bog roll", "TP"], "kanal": "Toilet paper is made to fall apart in water within seconds. On its way to the treatment plant it breaks down into fine fibres.", "hinweis": "The cardboard tube in the middle goes into paper recycling.", "pointe": "The VIP among toilet guests – always on the guest list." },

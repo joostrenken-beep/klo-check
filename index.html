@@ -7,8 +7,11 @@
   <meta name="description" content="Prüfe in Sekunden, ob etwas ins Klo oder in den Abfluss darf – und wohin es stattdessen gehört.">
   <meta name="theme-color" content="#8fd8f8">
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <!-- "?v=2" hinter den Symbolen: neue Adresse zwingt iPhones, das Symbol neu zu laden.
+       Wer das Symbol ändert, zählt die Zahl hoch (auch in manifest.webmanifest). -->
+  <link rel="icon" href="icons/favicon.svg?v=2" type="image/svg+xml">
+  <link rel="icon" href="icons/favicon-32.png?v=2" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png?v=2">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Klo-Check">
@@ -52,7 +55,7 @@
     <p><span data-i18n="fuss.ein">Ein Angebot der</span> <span id="fuss-name"></span></p>
     <p><a id="link-impressum" href="#/impressum" data-i18n="fuss.impressum">Impressum</a> ·
        <a id="link-datenschutz" href="#/datenschutz" data-i18n="fuss.datenschutz">Datenschutz</a></p>
-    <p><a href="#/alle" data-i18n="fuss.pruefliste">Alle Produkte (Prüfliste)</a></p>
+    <p><a href="#/alle" data-i18n="fuss.alle">Alle Produkte</a></p>
   </footer>
 
   <script type="module" src="js/app.js"></script>

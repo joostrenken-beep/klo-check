@@ -135,8 +135,8 @@ function zeichne() {
     scan: zeichneScan,
     info: () => zeichneInfo(main, config, t, lokal),
     quiz: () => zeichneQuiz({ main, produkte: DATEN.produkte, t, ausschluss: config.quiz?.ausschluss || [] }),
-    impressum: () => zeichnePlatzhalter("fuss.impressum", "platzhalter.impressum"),
-    datenschutz: () => zeichnePlatzhalter("fuss.datenschutz", "platzhalter.datenschutz"),
+    impressum: () => zeichneRechtliches("impressum"),
+    datenschutz: () => zeichneRechtliches("datenschutz"),
   };
   (ansichten[seite] || zeichneStart)();
   markiereNavigation(seite);
@@ -268,7 +268,6 @@ function zeichneProdukt(id) {
           <span class="ampel__symbol" aria-hidden="true">${AMPEL_SYMBOL[p.ampel]}</span>
           <span>${esc(t(`ampel.${p.ampel}`))}</span>
         </p>
-        ${config.zeigePruefstatus && !p.geprueft ? `<p class="entwurf">${esc(t("karte.ungeprueft"))}</p>` : ""}
       </header>
 
       <section class="karte__abschnitt">
@@ -406,40 +405,42 @@ function zeichneKategorie(id) {
     <ul class="liste">${produkte.map(produktZeileHtml).join("")}</ul>`;
 }
 
-// ---------- Ansicht: Alle Produkte (auch zum fachlichen Prüfen) ----------
+// ---------- Ansicht: Alle Produkte (Übersicht, druckbar) ----------
 function zeichneAlle() {
-  const sortiert = [...DATEN.produkte].sort((a, b) => a.kategorie.localeCompare(b.kategorie) || a.name.localeCompare(b.name, "de"));
-  const ungeprueft = DATEN.produkte.filter((p) => !p.geprueft).length;
+  const sortiert = [...DATEN.produkte].sort((a, b) => a.kategorie.localeCompare(b.kategorie) || a.name.localeCompare(b.name, SPRACHE));
   main.innerHTML = `
     <h1>${esc(t("alle.titel"))} (${DATEN.produkte.length})</h1>
-    <p class="klein">${esc(t("alle.hinweis"))} – ${ungeprueft} von ${DATEN.produkte.length} noch ungeprüft.</p>
-    <label class="schalter"><input type="checkbox" id="nurUngeprueft"> ${esc(t("alle.filterUngeprueft"))}</label>
-    <div class="pruefliste">${sortiert.map((p) => `
-      <details class="pruef ${p.geprueft ? "pruef--ok" : ""}" data-geprueft="${p.geprueft}">
+    <p class="klein">${esc(t("alle.hinweis"))}</p>
+    <div class="produktliste">${sortiert.map((p) => `
+      <details class="eintrag">
         <summary><span aria-hidden="true">${p.icon}</span> <strong>${esc(p.name)}</strong>
           <span class="ampelpunkt ampelpunkt--${p.ampel}"><span aria-hidden="true">${AMPEL_SYMBOL[p.ampel]}</span> ${esc(t(`ampel.${p.ampel}.kurz`))}</span>
-          <span class="klein">· ${esc(kategorieById(p.kategorie)?.name)} · id: ${esc(p.id)}${p.geprueft ? " · ✔ geprüft" : ""}</span></summary>
+          <span class="klein">· ${esc(kategorieById(p.kategorie)?.name)}</span></summary>
         <dl>
-          <dt>Synonyme</dt><dd>${esc((p.synonyme || []).join(", "))}</dd>
           <dt>${esc(t("karte.kanal"))}</dt><dd>${esc(p.kanal)}</dd>
-          <dt>${esc(t("karte.wohin"))}</dt><dd>${esc(p.wohin.map((z) => lokal(config.ziele[z]?.titel) || `⚠ unbekannt: ${z}`).join(", "))}${p.wohinHinweis ? ` – ${esc(p.wohinHinweis)}` : ""}</dd>
+          <dt>${esc(t("karte.wohin"))}</dt><dd>${esc(p.wohin.map((z) => lokal(config.ziele[z]?.titel)).filter(Boolean).join(", "))}${p.wohinHinweis ? ` – ${esc(p.wohinHinweis)}` : ""}</dd>
           ${p.hinweis ? `<dt>${esc(t("karte.tipp"))}</dt><dd>${esc(p.hinweis)}</dd>` : ""}
-          ${p.gully ? `<dt>Gully</dt><dd>${esc(p.gully)}</dd>` : ""}
-          <dt>Pointe</dt><dd>${esc(p.pointe)}</dd>
-          ${p.spuelbar ? `<dt>„Spülbar“-Hinweis</dt><dd>wird angezeigt</dd>` : ""}
+          ${p.gully ? `<dt>${esc(t("karte.gully"))}</dt><dd>${esc(p.gully)}</dd>` : ""}
+          <dt>${esc(t("karte.pointe"))}</dt><dd>${esc(p.pointe)}</dd>
         </dl>
-        <a href="#/produkt/${p.id}">Karte ansehen →</a>
+        <a href="#/produkt/${p.id}">${esc(t("alle.karte"))} →</a>
       </details>`).join("")}
     </div>`;
-  document.getElementById("nurUngeprueft").addEventListener("change", (e) => {
-    document.querySelectorAll(".pruef").forEach((el) => { el.hidden = e.target.checked && el.dataset.geprueft === "true"; });
-  });
 }
 
-function zeichnePlatzhalter(titelKey, textKey) {
-  main.innerHTML = `<h1>${esc(t(titelKey))}</h1><p class="hinweisbox">${esc(t(textKey))}</p>
-    <h2>${esc(t("kontakt.titel"))}</h2><p>${esc(config.stadtwerk.name)}<br>${esc(lokal(config.kontakt.abteilung))}<br>${esc(config.kontakt.adresse)}<br>
-    ${esc(t("kontakt.tel"))} ${esc(config.kontakt.telefon)}<br><a href="mailto:${esc(config.kontakt.email)}">${esc(config.kontakt.email)}</a></p>`;
+// ---------- Ansicht: Impressum / Datenschutz ----------
+function zeichneRechtliches(art) {
+  const name = config.stadtwerk.name;
+  const k = config.kontakt;
+  const seite = config.rechtliches[`${art}Seite`] || config.stadtwerk.webseite;
+  const zeilen = [name, lokal(k.abteilung), k.adresse,
+    k.telefon && `${t("kontakt.tel")} ${k.telefon}`].filter(Boolean).map(esc);
+  main.innerHTML = `
+    <h1>${esc(t(`fuss.${art}`))}</h1>
+    <p>${esc(t(`rechtliches.${art}.text`, { name }))}</p>
+    <h2>${esc(t("kontakt.titel"))}</h2>
+    <p>${zeilen.join("<br>")}${k.email ? `<br><a href="mailto:${esc(k.email)}">${esc(k.email)}</a>` : ""}</p>
+    ${seite ? `<p><a class="knopf knopf--hell" href="${esc(seite)}" target="_blank" rel="noopener">${esc(t(`rechtliches.${art}.link`, { name }))}</a></p>` : ""}`;
 }
 
 start();
