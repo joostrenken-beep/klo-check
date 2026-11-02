@@ -93,8 +93,12 @@ function beantworte(antwort) {
 
   ctx.main.querySelectorAll(".antwort").forEach((b) => {
     b.disabled = true;
-    if (b.dataset.antwort === p.ampel) b.classList.add("antwort--richtig");
-    else if (b.dataset.antwort === antwort) b.classList.add("antwort--falsch");
+    const marke = (klasse, key) => {
+      b.classList.add(klasse);
+      b.insertAdjacentHTML("beforeend", `<span class="antwort__marke">${esc(t(key))}</span>`);
+    };
+    if (b.dataset.antwort === p.ampel) marke("antwort--richtig", "quiz.marke.richtig");
+    else if (b.dataset.antwort === antwort) marke("antwort--falsch", "quiz.marke.deine");
   });
 
   const letzte = runde.nr === runde.fragen.length - 1;

@@ -17,6 +17,7 @@ import { tropfi, STIMMUNG_ZUR_AMPEL } from "./tropfi.js";
 
 const main = document.getElementById("inhalt");
 let T = {};          // Oberflächentexte
+let SPRACHE = "de";  // aktuelle Sprache
 let DATEN = null;    // { kategorien, produkte }
 let INDEX = [];      // Suchindex
 let letzteSuche = ""; // damit die Suche nach "Zurück" erhalten bleibt
@@ -28,16 +29,18 @@ const BELIEBT = ["feuchttuecher", "bratfett", "tabletten", "wattestaebchen", "ka
 // ---------- kleine Helfer ----------
 /** Übersetzung holen, {n} ersetzen */
 const t = (key, werte = {}) => (T[key] ?? key).replace(/\{(\w+)\}/g, (_, k) => werte[k] ?? "");
+/** Örtlicher Text aus config.js: entweder ein Text oder { de: "…", en: "…" } */
+const lokal = (wert) => (wert && typeof wert === "object" ? wert[SPRACHE] ?? wert.de : wert) ?? "";
 const produktById = (id) => DATEN.produkte.find((p) => p.id === id);
 const kategorieById = (id) => DATEN.kategorien.find((k) => k.id === id);
 
 // ---------- Start ----------
 async function start() {
   wendeBrandingAn();
-  const sprache = waehleSprache();
-  document.documentElement.lang = sprache;
+  SPRACHE = waehleSprache();
+  document.documentElement.lang = SPRACHE;
   try {
-    [T, DATEN] = await Promise.all([ladeTexte(sprache), ladeProdukte(sprache)]);
+    [T, DATEN] = await Promise.all([ladeTexte(SPRACHE), ladeProdukte(SPRACHE)]);
   } catch (e) {
     console.error(e);
     main.innerHTML = `<p class="fehler">Die Daten konnten nicht geladen werden. Läuft die App über einen Webserver? (siehe README)</p>`;
@@ -45,6 +48,7 @@ async function start() {
   }
   INDEX = baueIndex(DATEN.produkte);
   uebersetzeStatischeTexte();
+  zeigeSprachwahl();
   window.addEventListener("hashchange", zeichne);
   zeichne();
   beobachteOnline();
@@ -93,8 +97,27 @@ function waehleSprache() {
   return [ausUrl, gespeichert, browser].find((s) => s && erlaubt.includes(s)) || erlaubt[0];
 }
 
+// Namen der Sprachen in ihrer eigenen Schrift
+const SPRACHNAMEN = { de: "Deutsch", en: "English", tr: "Türkçe", ru: "Русский", uk: "Українська" };
+
+/** Auswahlfeld oben rechts – nur sichtbar, wenn mehr als eine Sprache eingestellt ist. */
+function zeigeSprachwahl() {
+  if (config.sprachen.length < 2) return;
+  const auswahl = document.getElementById("sprache");
+  auswahl.innerHTML = config.sprachen.map((s) =>
+    `<option value="${s}" lang="${s}" ${s === SPRACHE ? "selected" : ""}>${esc(SPRACHNAMEN[s] || s)}</option>`).join("");
+  auswahl.addEventListener("change", () => {
+    try { localStorage.setItem("klocheck-sprache", auswahl.value); } catch { /* privat */ }
+    const url = new URL(location.href);
+    url.searchParams.set("lang", auswahl.value); // klappt auch ohne localStorage
+    location.href = url.toString();
+  });
+  document.getElementById("sprachwahl").hidden = false;
+}
+
 function uebersetzeStatischeTexte() {
   document.querySelectorAll("[data-i18n]").forEach((el) => { el.textContent = t(el.dataset.i18n); });
+  document.querySelectorAll("[data-i18n-aria]").forEach((el) => el.setAttribute("aria-label", t(el.dataset.i18nAria)));
   document.title = `${t("app.titel")} – ${t("app.untertitel")}`;
 }
 
@@ -110,7 +133,7 @@ function zeichne() {
     kategorie: () => zeichneKategorie(id),
     alle: zeichneAlle,
     scan: zeichneScan,
-    info: () => zeichneInfo(main, config),
+    info: () => zeichneInfo(main, config, t, lokal),
     quiz: () => zeichneQuiz({ main, produkte: DATEN.produkte, t, ausschluss: config.quiz?.ausschluss || [] }),
     impressum: () => zeichnePlatzhalter("fuss.impressum", "platzhalter.impressum"),
     datenschutz: () => zeichnePlatzhalter("fuss.datenschutz", "platzhalter.datenschutz"),
@@ -229,7 +252,8 @@ function zeichneProdukt(id) {
   const vomScan = scanHinweis && scanHinweis.id === p.id ? scanHinweis : null;
   scanHinweis = null;
   const gruen = p.ampel === "gruen";
-  const ziele = p.wohin.map((key) => config.ziele[key]).filter(Boolean);
+  const ziele = p.wohin.map((key) => config.ziele[key]).filter(Boolean)
+    .map((z) => ({ ...z, titel: lokal(z.titel), text: lokal(z.text) }));
 
   main.innerHTML = `
     <article class="karte karte--${p.ampel}" aria-labelledby="karte-titel">
@@ -258,7 +282,7 @@ function zeichneProdukt(id) {
         <h2>${esc(t(gruen ? "karte.wohin.gruen" : "karte.wohin"))}</h2>
         <ul class="ziele">
           ${ziele.map((z) => `<li class="ziel"><span class="ziel__icon" aria-hidden="true">${z.icon}</span>
-              <span><strong>${esc(z.titel)}</strong><br>${esc(z.text)}${z.link ? ` <a href="${esc(z.link)}" target="_blank" rel="noopener">Mehr Infos</a>` : ""}</span></li>`).join("")}
+              <span><strong>${esc(z.titel)}</strong><br>${esc(z.text)}${z.link ? ` <a href="${esc(z.link)}" target="_blank" rel="noopener">${esc(t("karte.mehrInfos"))}</a>` : ""}</span></li>`).join("")}
         </ul>
         ${p.wohinHinweis ? `<p class="klein">${esc(p.wohinHinweis)}</p>` : ""}
       </section>
@@ -398,7 +422,7 @@ function zeichneAlle() {
         <dl>
           <dt>Synonyme</dt><dd>${esc((p.synonyme || []).join(", "))}</dd>
           <dt>${esc(t("karte.kanal"))}</dt><dd>${esc(p.kanal)}</dd>
-          <dt>${esc(t("karte.wohin"))}</dt><dd>${esc(p.wohin.map((z) => config.ziele[z]?.titel || `⚠ unbekannt: ${z}`).join(", "))}${p.wohinHinweis ? ` – ${esc(p.wohinHinweis)}` : ""}</dd>
+          <dt>${esc(t("karte.wohin"))}</dt><dd>${esc(p.wohin.map((z) => lokal(config.ziele[z]?.titel) || `⚠ unbekannt: ${z}`).join(", "))}${p.wohinHinweis ? ` – ${esc(p.wohinHinweis)}` : ""}</dd>
           ${p.hinweis ? `<dt>${esc(t("karte.tipp"))}</dt><dd>${esc(p.hinweis)}</dd>` : ""}
           ${p.gully ? `<dt>Gully</dt><dd>${esc(p.gully)}</dd>` : ""}
           <dt>Pointe</dt><dd>${esc(p.pointe)}</dd>
@@ -414,8 +438,8 @@ function zeichneAlle() {
 
 function zeichnePlatzhalter(titelKey, textKey) {
   main.innerHTML = `<h1>${esc(t(titelKey))}</h1><p class="hinweisbox">${esc(t(textKey))}</p>
-    <h2>Kontakt</h2><p>${esc(config.stadtwerk.name)}<br>${esc(config.kontakt.abteilung)}<br>${esc(config.kontakt.adresse)}<br>
-    Tel. ${esc(config.kontakt.telefon)}<br><a href="mailto:${esc(config.kontakt.email)}">${esc(config.kontakt.email)}</a></p>`;
+    <h2>${esc(t("kontakt.titel"))}</h2><p>${esc(config.stadtwerk.name)}<br>${esc(lokal(config.kontakt.abteilung))}<br>${esc(config.kontakt.adresse)}<br>
+    ${esc(t("kontakt.tel"))} ${esc(config.kontakt.telefon)}<br><a href="mailto:${esc(config.kontakt.email)}">${esc(config.kontakt.email)}</a></p>`;
 }
 
 start();
