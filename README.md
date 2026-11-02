@@ -60,9 +60,10 @@ klo-check/  (Hauptordner des Repositorys)
 │   └── statistik.js      ← Phase 2, derzeit ausgeschaltet
 ├── data/
 │   ├── produkte.json           ← ⭐ die Produktdatenbank
-│   └── barcode-zuordnung.json  ← ⭐ Regeln: gescannte Kategorie → unser Produkt
+│   ├── barcode-zuordnung.json  ← ⭐ Regeln: gescannte Kategorie → unser Produkt
+│   └── produkte.<sprache>.json ← Übersetzungen der Produkttexte (en, tr, ru, uk)
 ├── vendor/html5-qrcode.min.js  ← Barcode-Bibliothek (Apache-2.0), lokal gespeichert
-└── i18n/de.json          ← Oberflächentexte (Knöpfe, Überschriften)
+└── i18n/                ← Oberflächentexte je Sprache (de, en, tr, ru, uk)
 ```
 
 ---
@@ -169,18 +170,38 @@ Farben – worauf achten?
 
 ---
 
-## 8. Weitere Sprachen
+## 8. Sprachen
 
-1. `i18n/de.json` kopieren nach z. B. `i18n/en.json` und die Texte rechts übersetzen.
-2. Optional `data/produkte.en.json` anlegen – nur die Texte, Ampel und Entsorgungsweg
-   bleiben immer aus der geprüften deutschen Datei:
-   ```json
-   { "kategorien": { "hygiene": "Bathroom" },
-     "produkte": { "feuchttuecher": { "name": "Wet wipes", "kanal": "…", "pointe": "…" } } }
-   ```
-3. In `js/config.js` bei `sprachen` ergänzen: `["de", "en"]`.
+Die App gibt es auf **Deutsch, Englisch, Türkisch, Russisch und Ukrainisch**. Beim ersten Besuch
+wird die Sprache des Handys gewählt; oben rechts kann man jederzeit wechseln (die Wahl wird gemerkt).
+Direktlink in einer Sprache: `…/klo-check/?lang=tr`
 
----
+> ⚠️ Die Übersetzungen wurden mit KI erstellt. Bitte vor der Veröffentlichung von
+> Muttersprachlern gegenlesen lassen (z. B. Kolleginnen/Kollegen, Integrationsbeirat, Schulen).
+
+**Wo stehen die Texte?**
+
+| Was | Datei |
+|---|---|
+| Knöpfe, Überschriften, Quiz, Infoseite | `i18n/<sprache>.json` (z. B. `i18n/tr.json`) |
+| Produkttexte (Name, Synonyme, Kanal, Tipp, Pointe) | `data/produkte.<sprache>.json` |
+| Örtliches: Entsorgungswege, Abteilung, „Wusstest du?“ | `js/config.js` – je Text `{ de: "…", en: "…", … }` |
+
+**Wichtig:** Ampelfarbe und Entsorgungsweg stehen **nur** in der deutschen `produkte.json`.
+Übersetzungen können sie nicht verändern – fachlich geprüft wird also nur an einer Stelle.
+Fehlt in einer Übersetzung ein Text, erscheint automatisch der deutsche.
+
+**Neues Produkt?** Zuerst in `produkte.json` anlegen (deutsch). Danach in jeder
+`produkte.<sprache>.json` unter `"produkte"` einen Eintrag mit derselben `id` ergänzen –
+oder weglassen, dann erscheint das Produkt in dieser Sprache auf Deutsch.
+
+**Weitere Sprache hinzufügen** (z. B. Arabisch `ar`):
+1. `i18n/en.json` kopieren nach `i18n/ar.json` und die Texte rechts übersetzen.
+2. `data/produkte.en.json` kopieren nach `data/produkte.ar.json` und übersetzen.
+3. In `js/config.js` bei `sprachen` ergänzen und örtliche Texte um `ar: "…"` erweitern.
+4. In `sw.js` die beiden neuen Dateien in `DATEIEN` eintragen und `VERSION` hochzählen.
+5. Hinweis für Arabisch/Persisch: Diese Sprachen werden von rechts nach links geschrieben –
+   dafür ist noch eine kleine Anpassung im Layout nötig.
 
 ## 9. Veröffentlichen (GitHub Pages)
 

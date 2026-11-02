@@ -7,14 +7,19 @@
 //  Wörter gleich sind ("Fechttuch" → "Feuchttuch" = 1).
 // =====================================================================
 
-/** Text vereinfachen: "Feuchttücher!" → "feuchttucher" */
+/**
+ * Text vereinfachen: "Feuchttücher!" → "feuchttucher", "Islak Mendil" → "islak mendil",
+ * "Вологі серветки" → "вологі серветки". Funktioniert für alle Schriften.
+ */
 export function normalisiere(text) {
   return String(text)
     .toLowerCase()
     .replace(/ä/g, "a").replace(/ö/g, "o").replace(/ü/g, "u").replace(/ß/g, "ss")
     .replace(/ae/g, "a").replace(/oe/g, "o").replace(/ue/g, "u")
-    .normalize("NFD").replace(/[̀-ͯ]/g, "")   // é → e
-    .replace(/[^a-z0-9 ]+/g, " ")
+    .replace(/ı/g, "i")                                   // türkisches i ohne Punkt
+    .replace(/ё/g, "е")                                   // russisch: ё wird oft als е getippt
+    .normalize("NFD").replace(/\p{M}/gu, "")              // Akzente entfernen: é → e, ş → s, й → и
+    .replace(/[^\p{L}\p{N} ]+/gu, " ")                    // Buchstaben aller Sprachen behalten
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -51,7 +56,7 @@ function bewerte(q, t) {
   if (t === q) return 100;
   if (t.startsWith(q)) return 90 - Math.min(20, t.length - q.length);
   const woerter = t.split(" ");
-  if (woerter.some((w) => w.startsWith(q))) return 80;
+  if (woerter.some((w) => w.startsWith(q))) return 78; // knapp unter "Begriff beginnt so"
   if (q.length >= 3 && t.includes(q)) return 70;      // "tuch" findet "feuchttuch"
 
   const max = erlaubteFehler(q.length);

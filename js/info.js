@@ -25,86 +25,72 @@ const SYMBOL = {
           <path d="M14 34 v-18 M14 22 q-6 -4 -8 -10 M14 26 q6 -4 8 -10" fill="none" stroke="#43a047" stroke-width="2.5" stroke-linecap="round"/></svg>`,
 };
 
-const STATIONEN = [
-  { symbol: "haus",   titel: "Zuhause",
-    text: "Alles aus Klo, Dusche, Waschmaschine und Spüle fließt in die Hausanschlussleitung. Die ist oft nur so dick wie ein Unterarm – eine Windel reicht, um sie zu verstopfen." },
-  { symbol: "kanal",  titel: "Kanal unter der Straße",
-    text: "Unter der Straße liegt der Schmutzwasserkanal. Das Abwasser fließt mit leichtem Gefälle ganz von allein. Fett wird hier kalt und klebt an den Rohrwänden." },
-  { symbol: "pumpe",  titel: "Pumpwerk",
-    text: "Wo es nicht mehr bergab geht, heben Pumpen das Abwasser an. Hier wickeln sich Feuchttücher, Zahnseide und Haare zu dicken Zöpfen um die Laufräder – dann steht die Pumpe still." },
-  { symbol: "rechen", titel: "Kläranlage: Rechen & Sandfang",
-    text: "Ein großer Rechen fischt alles Grobe heraus, was nicht ins Klo gehört hätte. Danach setzen sich Sand und Steinchen ab, und Fett wird abgeschöpft." },
-  { symbol: "becken", titel: "Kläranlage: Belebungsbecken",
-    text: "Jetzt arbeiten Milliarden winziger Bakterien: Sie fressen den Schmutz aus dem Wasser. Chemikalien und Medikamente können sie dabei krank machen – oder sie werden gar nicht abgebaut." },
-  { symbol: "fluss",  titel: "Zurück in den Fluss",
-    text: "Das gereinigte Wasser fließt in den Fluss. Was die Kläranlage nicht herausholen konnte – Mikroplastik oder Arzneireste – schwimmt mit zu Fischen und Pflanzen." },
-];
+// Reihenfolge der Stationen; die Texte stehen in i18n/<sprache>.json unter "info.station.<name>…"
+const STATIONEN = ["haus", "kanal", "pumpe", "rechen", "becken", "fluss"];
 
-export function zeichneInfo(main, config) {
+export function zeichneInfo(main, config, t, lokal) {
   const k = config.kontakt;
   const z = config.zahlen;
   main.innerHTML = `
     <section class="info-kopf">
       ${tropfi("winkt", "tropfi--mittel")}
       <div>
-        <h1>Vom Klo zur Kläranlage</h1>
-        <p>Komm mit auf die Reise! So kommt das Wasser aus deinem Klo wieder sauber in den Fluss.</p>
+        <h1>${esc(t("info.titel"))}</h1>
+        <p>${esc(t("info.intro"))}</p>
       </div>
     </section>
 
-    <ol class="weg" aria-label="Weg des Abwassers">
+    <ol class="weg" aria-label="${esc(t("info.weg"))}">
       ${STATIONEN.map((s, i) => `
         <li class="station">
-          <span class="station__bild">${SYMBOL[s.symbol]}</span>
+          <span class="station__bild">${SYMBOL[s]}</span>
           <div class="station__text">
-            <h2><span class="station__nr">${i + 1}</span> ${esc(s.titel)}</h2>
-            <p>${esc(s.text)}</p>
+            <h2><span class="station__nr">${i + 1}</span> ${esc(t(`info.station.${s}.titel`))}</h2>
+            <p>${esc(t(`info.station.${s}.text`))}</p>
           </div>
         </li>`).join("")}
     </ol>
 
-    <aside class="infobox infobox--gully trennsystem">
-      <h2>🌧️ Und der Gully auf der Straße?</h2>
+    <section class="infobox infobox--gully trennsystem">
+      <h2>🌧️ ${esc(t("info.gully.titel"))}</h2>
       <svg class="trennsystem__grafik" viewBox="0 0 320 175" role="img" aria-labelledby="ts-titel">
-        <title id="ts-titel">Trennsystem: Schmutzwasser aus dem Haus fließt zur Kläranlage und wird gereinigt. Regenwasser aus dem Gully fließt ungeklärt direkt in den Bach.</title>
+        <title id="ts-titel">${esc(t("info.grafik.beschreibung"))}</title>
         <rect x="0" y="68" width="320" height="6" fill="#b0bec5"/>
         <path d="M18 46 L45 22 L72 46 Z" fill="#fff" stroke="#0b2f4a" stroke-width="2" stroke-linejoin="round"/>
         <rect x="24" y="46" width="42" height="22" fill="#fff" stroke="#0b2f4a" stroke-width="2"/>
-        <text x="45" y="14" font-size="11" text-anchor="middle" fill="#0b2f4a">Haus</text>
+        <text x="45" y="14" font-size="11" text-anchor="middle" fill="#0b2f4a">${esc(t("info.grafik.haus"))}</text>
         <rect x="104" y="66" width="24" height="6" fill="#455a64"/>
-        <text x="116" y="60" font-size="11" text-anchor="middle" fill="#0b2f4a">Gully</text>
+        <text x="116" y="60" font-size="11" text-anchor="middle" fill="#0b2f4a">${esc(t("info.grafik.gully"))}</text>
         <path d="M116 74 V150 H226" fill="none" stroke="#29a8e8" stroke-width="7" stroke-linecap="round"/>
         <path d="M45 68 V108 H226" fill="none" stroke="#8d6e63" stroke-width="7" stroke-linecap="round"/>
-        <text x="136" y="100" font-size="11" fill="#5d4037">Schmutzwasser</text>
-        <text x="128" y="142" font-size="11" fill="#01579b" font-weight="bold">Regenwasser – ungeklärt!</text>
+        <text x="136" y="100" font-size="11" fill="#5d4037">${esc(t("info.grafik.schmutzwasser"))}</text>
+        <text x="128" y="142" font-size="11" fill="#01579b" font-weight="bold">${esc(t("info.grafik.regenwasser"))}</text>
         <rect x="228" y="94" width="84" height="26" rx="5" fill="#a5d6a7" stroke="#0b2f4a" stroke-width="1.5"/>
-        <text x="270" y="111" font-size="11" text-anchor="middle" fill="#0b2f4a">Kläranlage</text>
+        <text x="270" y="111" font-size="11" text-anchor="middle" fill="#0b2f4a">${esc(t("info.grafik.klaeranlage"))}</text>
         <path d="M270 120 V134" stroke="#0b2f4a" stroke-width="1.5" marker-end="url(#ts-pfeil)"/>
         <defs><marker id="ts-pfeil" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#0b2f4a"/></marker></defs>
         <path d="M228 148 q10 -6 20 0 t20 0 t20 0 t20 0 t12 0 V175 H228 Z" fill="#29a8e8"/>
-        <text x="270" y="166" font-size="11" text-anchor="middle" fill="#fff" font-weight="bold">Bach</text>
+        <text x="270" y="166" font-size="11" text-anchor="middle" fill="#fff" font-weight="bold">${esc(t("info.grafik.bach"))}</text>
       </svg>
-      <p>Bei uns gibt es zwei getrennte Kanäle: einen für Schmutzwasser und einen für Regenwasser.
-        Was in den <strong>Straßengully</strong> kommt, fließt <strong>ohne Reinigung direkt in den Bach</strong>.
-        Deshalb: Kein Putzwasser, kein Autowaschwasser, keine Kippen und kein Laub in den Gully!</p>
-    </aside>
+      <p>${esc(t("info.gully.text"))}</p>
+    </section>
 
     ${z ? `<section class="block">
-      <h2>Wusstest du?</h2>
+      <h2>${esc(t("info.wusstest"))}</h2>
       <ul class="fakten">
-        ${z.schmutzwasserKm ? `<li><strong>${esc(z.schmutzwasserKm)} km</strong> Schmutzwasserkanal</li>` : ""}
-        ${z.regenwasserKm ? `<li><strong>${esc(z.regenwasserKm)} km</strong> Regenwasserkanal</li>` : ""}
-        ${(z.extra || []).map((f) => `<li>${esc(f)}</li>`).join("")}
+        ${z.schmutzwasserKm ? `<li>${esc(t("info.km.schmutzwasser", { n: z.schmutzwasserKm }))}</li>` : ""}
+        ${z.regenwasserKm ? `<li>${esc(t("info.km.regenwasser", { n: z.regenwasserKm }))}</li>` : ""}
+        ${(z.extra || []).map((f) => `<li>${esc(lokal(f))}</li>`).join("")}
       </ul>
     </section>` : ""}
 
     <section class="block kontakt">
-      <h2>Fragen? Wir helfen gern!</h2>
-      <p><strong>${esc(config.stadtwerk.name)}</strong><br>${esc(k.abteilung)}<br>${esc(k.adresse)}</p>
+      <h2>${esc(t("info.fragen"))}</h2>
+      <p><strong>${esc(config.stadtwerk.name)}</strong><br>${esc(lokal(k.abteilung))}<br>${esc(k.adresse)}</p>
       <p class="kontakt__knoepfe">
         <a class="knopf" href="tel:${esc(k.telefon.replace(/[^\d+]/g, ""))}">📞 ${esc(k.telefon)}</a>
-        <a class="knopf knopf--hell" href="mailto:${esc(k.email)}">✉️ E-Mail schreiben</a>
+        <a class="knopf knopf--hell" href="mailto:${esc(k.email)}">✉️ ${esc(t("info.mail"))}</a>
       </p>
-      ${config.stadtwerk.webseite ? `<p><a href="${esc(config.stadtwerk.webseite)}" target="_blank" rel="noopener">Zur Webseite der ${esc(config.stadtwerk.name)}</a></p>` : ""}
+      ${config.stadtwerk.webseite ? `<p><a href="${esc(config.stadtwerk.webseite)}" target="_blank" rel="noopener">${esc(t("info.webseite", { name: config.stadtwerk.name }))}</a></p>` : ""}
     </section>`;
 }

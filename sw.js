@@ -11,7 +11,7 @@
 //  VERSION hochzählen, wenn Dateien dazukommen oder wegfallen
 //  (dann wird der Speicher komplett neu angelegt).
 // =====================================================================
-const VERSION = "klocheck-v1";
+const VERSION = "klocheck-v2";
 
 // Diese Dateien werden beim ersten Besuch sofort gespeichert:
 const DATEIEN = [
@@ -31,6 +31,14 @@ const DATEIEN = [
   "data/produkte.json",
   "data/barcode-zuordnung.json",
   "i18n/de.json",
+  "i18n/en.json",
+  "i18n/tr.json",
+  "i18n/ru.json",
+  "i18n/uk.json",
+  "data/produkte.en.json",
+  "data/produkte.tr.json",
+  "data/produkte.ru.json",
+  "data/produkte.uk.json",
   "manifest.webmanifest",
   "icons/favicon.svg",
   "icons/icon-192.png",

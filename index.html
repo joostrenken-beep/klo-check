@@ -16,16 +16,22 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
+  <a class="skip-link" href="#inhalt" data-i18n="skip">Zum Inhalt springen</a>
 
   <header class="kopf">
-    <a class="kopf__marke" href="#/" aria-label="Klo-Check Startseite">
+    <div class="kopf__innen">
+    <a class="kopf__marke" href="#/" data-i18n-aria="kopf.startseite" aria-label="Klo-Check Startseite">
       <span class="kopf__tropfen" aria-hidden="true">💧</span>
       <span>
         <span class="kopf__titel" data-i18n="app.titel">Klo-Check</span>
         <span class="kopf__unter" data-i18n="app.untertitel">Darf das ins Klo?</span>
       </span>
     </a>
+    <div class="sprachwahl" id="sprachwahl" hidden>
+      <label for="sprache" class="sr-only" data-i18n="sprache.label">Sprache</label>
+      <select id="sprache"></select>
+    </div>
+    </div>
   </header>
 
   <p id="offline" class="offline-leiste" role="status" hidden>📴 <span data-i18n="offline.hinweis">Du bist offline – Suche, Quiz und Infos funktionieren trotzdem.</span></p>
@@ -34,7 +40,7 @@
     <p class="laden" data-i18n="laden">Lade …</p>
   </main>
 
-  <nav class="leiste" aria-label="Hauptnavigation">
+  <nav class="leiste" data-i18n-aria="nav.label" aria-label="Hauptnavigation">
     <a href="#/" data-nav="suche"><span aria-hidden="true">🔍</span><span data-i18n="nav.suche">Suche</span></a>
     <a href="#/scan" data-nav="scan"><span aria-hidden="true">📷</span><span data-i18n="nav.scan">Scannen</span></a>
     <a href="#/quiz" data-nav="quiz"><span aria-hidden="true">🎯</span><span data-i18n="nav.quiz">Quiz</span></a>
