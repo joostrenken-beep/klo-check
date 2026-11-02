@@ -238,6 +238,15 @@ Repositories. Für einen dauerhaften Betrieb empfiehlt sich später eine eigene 
 - **iPhone (Safari):** Seite öffnen → Teilen-Knopf (Quadrat mit Pfeil) → **„Zum Home-Bildschirm“** → Hinzufügen.
 - **Android (Chrome):** Seite öffnen → Menü ⋮ → **„App installieren“** bzw. „Zum Startbildschirm hinzufügen“.
 
+**Symbol fehlt auf dem iPhone-Home-Bildschirm?** Safari übernimmt das Symbol nur in dem Moment,
+in dem man „Zum Home-Bildschirm“ tippt, und merkt es sich danach. So bekommt man es neu:
+1. Das alte Symbol auf dem Home-Bildschirm lange drücken → „App entfernen“ → „Vom Home-Bildschirm entfernen“.
+2. Einstellungen → Apps → Safari → Erweitert → Website-Daten → nach `github` suchen → löschen.
+3. Seite in Safari neu öffnen, einmal neu laden, dann wieder „Zum Home-Bildschirm“.
+
+Wer das App-Symbol später austauscht, zählt in `index.html` und `manifest.webmanifest` die
+Versionsnummer hinter den Symbolen hoch (`?v=2` → `?v=3`), damit alle Geräte es neu laden.
+
 Danach startet Klo-Check wie eine App, ohne Adressleiste – und funktioniert auch ohne Internet
 (nur der Barcode-Scan braucht eine Verbindung).
 
