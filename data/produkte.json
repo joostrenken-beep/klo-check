@@ -1,0 +1,917 @@
+{
+  "version": "2026-11-01-entwurf",
+  "kategorien": [
+    { "id": "hygiene",     "name": "Bad & Hygiene",      "icon": "🧻" },
+    { "id": "kueche",      "name": "Küche",              "icon": "🍳" },
+    { "id": "medikamente", "name": "Medikamente",        "icon": "💊" },
+    { "id": "chemie",      "name": "Chemikalien & Putzen","icon": "🧪" },
+    { "id": "haustier",    "name": "Haustier",           "icon": "🐾" },
+    { "id": "sonstiges",   "name": "Sonstiges",          "icon": "📦" }
+  ],
+  "produkte": [
+    {
+      "id": "toilettenpapier", "name": "Toilettenpapier", "kategorie": "hygiene", "icon": "🧻",
+      "synonyme": ["Klopapier", "Klorolle", "WC-Papier", "Toilet Paper", "Klopapierrolle"],
+      "ampel": "gruen",
+      "kanal": "Klopapier ist so gemacht, dass es im Wasser in Sekunden zerfällt. Auf dem Weg zur Kläranlage löst es sich in feine Fasern auf.",
+      "wohin": ["klo"],
+      "hinweis": "Die Papprolle in der Mitte gehört ins Altpapier.",
+      "pointe": "Der VIP unter allen Klo-Gästen – steht auf jeder Gästeliste.",
+      "geprueft": false
+    },
+    {
+      "id": "urin", "name": "Urin", "kategorie": "hygiene", "icon": "💛",
+      "synonyme": ["Pipi", "Pinkeln", "Harn", "Pippi", "Pee"],
+      "ampel": "gruen",
+      "kanal": "Urin ist ganz normales Abwasser. Die Kläranlage holt mit Bakterien Stickstoff und Phosphor heraus.",
+      "wohin": ["klo"],
+      "pointe": "Pipi ist Stammgast. Die Kläranlage kennt es schon beim Vornamen.",
+      "geprueft": false
+    },
+    {
+      "id": "kot", "name": "Kot", "kategorie": "hygiene", "icon": "💩",
+      "synonyme": ["Kacka", "Kaka", "Stuhlgang", "Stuhl", "Häufchen", "Poop", "Groß"],
+      "ampel": "gruen",
+      "kanal": "Dafür wurde das Klo erfunden. In der Kläranlage bauen Bakterien die Stoffe ab, aus dem Schlamm wird sogar Biogas.",
+      "wohin": ["klo"],
+      "pointe": "Aus deinem Häufchen wird am Ende Strom. Ehrlich!",
+      "geprueft": false
+    },
+    {
+      "id": "erbrochenes", "name": "Erbrochenes", "kategorie": "hygiene", "icon": "🤢",
+      "synonyme": ["Kotze", "Übergeben", "Spucken", "Brechen"],
+      "ampel": "gruen",
+      "kanal": "Darf ins Klo und wird in der Kläranlage wie anderes Abwasser gereinigt.",
+      "wohin": ["klo"],
+      "pointe": "Kein schöner Moment – aber das Klo hält zu dir.",
+      "geprueft": false
+    },
+    {
+      "id": "feuchttuecher", "name": "Feuchttücher", "kategorie": "hygiene", "icon": "🧴",
+      "synonyme": ["Feuchttuch", "Babytücher", "Babyfeuchttücher", "Wet Wipes", "Wipes", "Pflegetücher", "Reinigungstücher", "Erfrischungstücher"],
+      "ampel": "rot",
+      "kanal": "Feuchttücher sind aus reißfestem Vlies und zerfallen nicht. Im Pumpwerk wickeln sie sich um die Laufräder der Pumpen und bilden dicke Zöpfe. Dann steht die Pumpe still und muss von Hand freigeschnitten werden.",
+      "wohin": ["restmuell"],
+      "spuelbar": true,
+      "pointe": "Feuchttücher lieben Pumpen. Leider ist es keine gesunde Beziehung.",
+      "geprueft": false
+    },
+    {
+      "id": "feuchtes-klopapier", "name": "Feuchtes Toilettenpapier", "kategorie": "hygiene", "icon": "🧻",
+      "synonyme": ["Feuchtes Klopapier", "Feuchte Toilettentücher", "Moist Toilet Tissue", "Feuchtpapier"],
+      "ampel": "rot",
+      "kanal": "Trotz des Namens ist es kein Klopapier, sondern ein Feuchttuch. Es bleibt im Wasser stabil und verzopft in Pumpen und Rohren.",
+      "wohin": ["restmuell"],
+      "hinweis": "Kleiner Eimer mit Deckel neben das Klo stellen – schon ist das Problem gelöst.",
+      "spuelbar": true,
+      "pointe": "Nennt sich Klopapier, benimmt sich aber wie ein Seil.",
+      "geprueft": false
+    },
+    {
+      "id": "spuelbar", "name": "„Spülbare“ Tücher (flushable)", "kategorie": "hygiene", "icon": "🏷️",
+      "synonyme": ["Spülbar", "Flushable", "Toilettengeeignet", "Biologisch abbaubar", "Spülbare Feuchttücher", "Flushable Wipes"],
+      "ampel": "rot",
+      "kanal": "„Spülbar“ heißt nur: Es rutscht durch die Toilette. Es heißt nicht: Es löst sich auf. Im Kanal verzopfen auch diese Tücher in Pumpen.",
+      "wohin": ["restmuell"],
+      "spuelbar": true,
+      "pointe": "„Spülbar“ ist ungefähr so ehrlich wie „Ich räume gleich auf“.",
+      "geprueft": false
+    },
+    {
+      "id": "taschentuecher", "name": "Taschentücher", "kategorie": "hygiene", "icon": "🤧",
+      "synonyme": ["Tempo", "Papiertaschentuch", "Kosmetiktücher", "Schnupftuch", "Tissues"],
+      "ampel": "rot",
+      "kanal": "Taschentücher sind „nassfest“ gemacht, damit sie beim Schnäuzen nicht reißen. Deshalb zerfallen sie im Wasser viel langsamer als Klopapier.",
+      "wohin": ["restmuell"],
+      "pointe": "Hält beim Schnäuzen dicht – und leider auch im Kanal.",
+      "geprueft": false
+    },
+    {
+      "id": "kuechenrolle", "name": "Küchenrolle", "kategorie": "kueche", "icon": "🧻",
+      "synonyme": ["Küchenpapier", "Küchentuch", "Haushaltsrolle", "Zewa", "Papiertücher"],
+      "ampel": "rot",
+      "kanal": "Küchenpapier ist besonders reißfest und saugstark. Im Rohr zerfällt es kaum und kann zusammen mit Fett Verstopfungen bilden.",
+      "wohin": ["restmuell", "biotonne"],
+      "wohinHinweis": "Ob leicht verschmutztes Küchenpapier in die Biotonne darf, regelt der örtliche Abfallentsorger.",
+      "pointe": "Saugt alles auf – nur nicht die Lust der Pumpe auf Arbeit.",
+      "geprueft": false
+    },
+    {
+      "id": "wattestaebchen", "name": "Wattestäbchen", "kategorie": "hygiene", "icon": "🦻",
+      "synonyme": ["Ohrenstäbchen", "Q-Tips", "Wattestab", "Ohrstäbchen", "Cotton Swabs"],
+      "ampel": "rot",
+      "kanal": "Die dünnen Stäbchen rutschen oft durch den Rechen der Kläranlage. Dann landen sie im Klärschlamm oder sogar im Fluss und später am Strand.",
+      "wohin": ["restmuell"],
+      "pointe": "Klein, dünn, hinterlistig – der Ninja unter den Klo-Sündern.",
+      "geprueft": false
+    },
+    {
+      "id": "wattepads", "name": "Wattepads", "kategorie": "hygiene", "icon": "⚪",
+      "synonyme": ["Abschminkpads", "Wattebausch", "Watte", "Kosmetikpads", "Cotton Pads"],
+      "ampel": "rot",
+      "kanal": "Watte saugt sich voll, klumpt zusammen und verfängt sich in Rohren und Pumpen.",
+      "wohin": ["restmuell"],
+      "pointe": "Kuschelig weich – bis 100 von ihnen ein Rohr verstopfen.",
+      "geprueft": false
+    },
+    {
+      "id": "abschminktuecher", "name": "Abschminktücher", "kategorie": "hygiene", "icon": "💄",
+      "synonyme": ["Make-up-Entferner-Tücher", "Gesichtsreinigungstücher", "Make-up Tücher"],
+      "ampel": "rot",
+      "kanal": "Abschminktücher sind Feuchttücher – reißfest, unverwüstlich und ein Albtraum für jede Pumpe.",
+      "wohin": ["restmuell"],
+      "spuelbar": true,
+      "pointe": "Make-up runter, Pumpe aus. Kein guter Tausch.",
+      "geprueft": false
+    },
+    {
+      "id": "binden", "name": "Binden & Slipeinlagen", "kategorie": "hygiene", "icon": "🩸",
+      "synonyme": ["Binde", "Slipeinlage", "Damenbinde", "Monatsbinde", "Pads"],
+      "ampel": "rot",
+      "kanal": "Binden enthalten Kunststoff und Saugmaterial. Sie quellen auf und verstopfen schon die Leitung im eigenen Haus.",
+      "wohin": ["restmuell"],
+      "hinweis": "In Papier oder Verpackung einwickeln und in den Mülleimer.",
+      "pointe": "Saugt 100-mal mehr, als das Rohr verkraftet.",
+      "geprueft": false
+    },
+    {
+      "id": "tampons", "name": "Tampons", "kategorie": "hygiene", "icon": "🩸",
+      "synonyme": ["Tampon", "o.b.", "OB"],
+      "ampel": "rot",
+      "kanal": "Tampons quellen im Wasser auf das Mehrfache auf. Mit dem Rückholbändchen verhaken sie sich gern und bilden mit anderen Fasern Zöpfe.",
+      "wohin": ["restmuell"],
+      "pointe": "Im Wasser wird aus dem Tampon ein aufgeblasener Angeber.",
+      "geprueft": false
+    },
+    {
+      "id": "menstruationstasse", "name": "Inhalt der Menstruationstasse", "kategorie": "hygiene", "icon": "🩸",
+      "synonyme": ["Menstruationstasse", "Menstruationsblut", "Periodenblut", "Cup", "Mooncup"],
+      "ampel": "gruen",
+      "kanal": "Das Blut ist normales Abwasser und darf ins Klo. Die Tasse selbst natürlich nicht – die wird gewaschen und wiederverwendet.",
+      "wohin": ["klo"],
+      "pointe": "Inhalt: willkommen. Tasse: bitte draußen bleiben.",
+      "geprueft": false
+    },
+    {
+      "id": "kondome", "name": "Kondome", "kategorie": "hygiene", "icon": "🎈",
+      "synonyme": ["Kondom", "Präservativ", "Gummi", "Verhütungsmittel"],
+      "ampel": "rot",
+      "kanal": "Latex zerfällt nicht. Kondome wickeln sich um Pumpenteile oder treiben bis in die Kläranlage.",
+      "wohin": ["restmuell"],
+      "hinweis": "In ein Taschentuch einwickeln und in den Mülleimer.",
+      "pointe": "Schützt zuverlässig – nur nicht die Pumpe.",
+      "geprueft": false
+    },
+    {
+      "id": "windeln", "name": "Windeln", "kategorie": "hygiene", "icon": "👶",
+      "synonyme": ["Windel", "Pampers", "Babywindel", "Inkontinenzeinlage", "Inkontinenzvorlage", "Höschenwindel"],
+      "ampel": "rot",
+      "kanal": "Windeln enthalten Superabsorber, der das Vielfache seines Gewichts an Wasser aufsaugt. So wird aus einer Windel ein Pfropfen, der das Rohr dicht macht.",
+      "wohin": ["restmuell"],
+      "hinweis": "Den Inhalt (Kot) darfst du vorher ins Klo kippen.",
+      "pointe": "Eine Windel im Rohr – und plötzlich hat das ganze Haus ein Problem.",
+      "geprueft": false
+    },
+    {
+      "id": "zahnseide", "name": "Zahnseide", "kategorie": "hygiene", "icon": "🦷",
+      "synonyme": ["Zahnseidesticks", "Floss", "Interdentalbürste", "Zahnzwischenraumbürste"],
+      "ampel": "rot",
+      "kanal": "Zahnseide ist aus Kunststoff und zerfällt nie. Sie ist wie ein Faden, an dem sich Haare und Tücher zu dicken Zöpfen sammeln.",
+      "wohin": ["restmuell"],
+      "pointe": "Der rote Faden für jede Pumpenstörung.",
+      "geprueft": false
+    },
+    {
+      "id": "haare", "name": "Haare", "kategorie": "hygiene", "icon": "💇",
+      "synonyme": ["Haar", "Bürstenhaare", "Bartstoppeln", "Barthaare", "Haarbüschel"],
+      "ampel": "rot",
+      "kanal": "Haare verfilzen mit Seife und Fett im Siphon und in den Rohren. Ein Haarknäuel verstopft schnell den Abfluss.",
+      "wohin": ["restmuell"],
+      "hinweis": "Ein Sieb im Abfluss von Dusche und Waschbecken fängt Haare zuverlässig ab.",
+      "pointe": "Im Abfluss bekommen Haare richtig schlechte Frisuren.",
+      "geprueft": false
+    },
+    {
+      "id": "rasierklingen", "name": "Rasierklingen", "kategorie": "hygiene", "icon": "🪒",
+      "synonyme": ["Rasierer", "Einwegrasierer", "Klinge", "Rasierklinge", "Cutterklinge"],
+      "ampel": "rot",
+      "kanal": "Klingen sammeln sich in Pumpwerken und Rechen. Dort verletzen sie die Menschen, die Störungen von Hand beseitigen.",
+      "wohin": ["restmuell"],
+      "hinweis": "Klinge in Pappe oder Klebeband einwickeln.",
+      "pointe": "Scharf im Bad, gemein im Kanal.",
+      "geprueft": false
+    },
+    {
+      "id": "kontaktlinsen", "name": "Kontaktlinsen", "kategorie": "hygiene", "icon": "👁️",
+      "synonyme": ["Kontaktlinse", "Linsen", "Tageslinsen", "Monatslinsen"],
+      "ampel": "rot",
+      "kanal": "Kontaktlinsen sind aus Kunststoff. In der Kläranlage werden sie zu Mikroplastik zerrieben und landen im Klärschlamm oder im Gewässer.",
+      "wohin": ["restmuell"],
+      "hinweis": "Die Blister-Verpackung gehört in den Gelben Sack.",
+      "pointe": "Damit sieht man scharf – aber Fische sehen dann Mikroplastik.",
+      "geprueft": false
+    },
+    {
+      "id": "pflaster", "name": "Pflaster & Verbandsmaterial", "kategorie": "hygiene", "icon": "🩹",
+      "synonyme": ["Pflaster", "Verband", "Mullbinde", "Kompresse", "Wundauflage", "Hansaplast"],
+      "ampel": "rot",
+      "kanal": "Pflaster kleben, Verbände sind aus festem Gewebe. Beides zerfällt nicht und verfängt sich in Rohren und Pumpen.",
+      "wohin": ["restmuell"],
+      "pointe": "Pflaster heilen Knie – keine Rohre.",
+      "geprueft": false
+    },
+    {
+      "id": "zahnpasta", "name": "Zahnpasta (beim Zähneputzen)", "kategorie": "hygiene", "icon": "🪥",
+      "synonyme": ["Zahncreme", "Zahnpasta", "Ausspucken", "Mundspülung", "Mundwasser"],
+      "ampel": "gelb",
+      "kanal": "Die Reste vom Zähneputzen sind ganz normales Abwasser. Die Kläranlage kommt damit gut klar.",
+      "wohin": ["ausguss"],
+      "hinweis": "Die leere Tube gehört in den Gelben Sack.",
+      "pointe": "Ausspucken erlaubt – Tube runterspülen nicht.",
+      "geprueft": false
+    },
+    {
+      "id": "duschgel", "name": "Duschgel & Shampoo", "kategorie": "hygiene", "icon": "🧼",
+      "synonyme": ["Shampoo", "Seife", "Flüssigseife", "Badezusatz", "Schaumbad", "Spülung", "Conditioner"],
+      "ampel": "gelb",
+      "kanal": "Beim Duschen ist das normal. Die Tenside werden in der Kläranlage größtenteils abgebaut. Sparsam dosieren schont trotzdem die Umwelt.",
+      "wohin": ["ausguss"],
+      "hinweis": "Volle Flaschen bitte nicht ausgießen, sondern aufbrauchen oder verschenken. Leere Flaschen in den Gelben Sack.",
+      "pointe": "Ein Klecks reicht – Schaumparty lieber nicht im Kanal.",
+      "geprueft": false
+    },
+    {
+      "id": "nagellack", "name": "Nagellack & Nagellackentferner", "kategorie": "chemie", "icon": "💅",
+      "synonyme": ["Nagellackentferner", "Aceton", "Nagellack"],
+      "ampel": "rot",
+      "kanal": "Nagellack und Entferner enthalten Lösungsmittel. Sie schaden den Bakterien in der Kläranlage, die das Abwasser sauber machen.",
+      "wohin": ["schadstoff"],
+      "hinweis": "Kleine eingetrocknete Reste im Fläschchen dürfen in den Restmüll.",
+      "pointe": "Die Bakterien in der Kläranlage stehen nicht auf Maniküre.",
+      "geprueft": false
+    },
+
+    {
+      "id": "bratfett", "name": "Bratfett & Frittierfett", "kategorie": "kueche", "icon": "🍟",
+      "synonyme": ["Fett", "Frittierfett", "Bratfett", "Pfannenfett", "Schmalz", "Butter", "Margarine", "Kokosfett", "Fettreste"],
+      "ampel": "rot",
+      "kanal": "Heißes Fett ist flüssig – im kalten Kanal wird es fest. Es setzt sich an den Rohrwänden ab, die Rohre werden immer enger. Es stinkt, lockt Ratten an und muss teuer herausgespült werden.",
+      "wohin": ["restmuell"],
+      "hinweis": "Abkühlen lassen, in ein Glas oder eine Dose mit Deckel füllen oder mit Küchenpapier aufnehmen.",
+      "pointe": "Im Kanal wird aus Pommesfett ein Fettberg. Ratten sagen: Danke!",
+      "geprueft": false
+    },
+    {
+      "id": "speiseoel", "name": "Speiseöl", "kategorie": "kueche", "icon": "🫒",
+      "synonyme": ["Öl", "Olivenöl", "Sonnenblumenöl", "Rapsöl", "Altöl Küche", "Pflanzenöl", "Salatöl"],
+      "ampel": "rot",
+      "kanal": "Öl verbindet sich mit anderen Stoffen im Kanal zu klebrigen Belägen. Auf der Kläranlage bildet es eine Schicht, die den Reinigungsbakterien den Sauerstoff nimmt.",
+      "wohin": ["restmuell"],
+      "wohinHinweis": "In einer verschlossenen Plastikflasche in den Restmüll. Manche Orte haben Sammelstellen für Altspeiseöl.",
+      "pointe": "Öl und Wasser verstehen sich nicht. Das war schon immer so.",
+      "geprueft": false
+    },
+    {
+      "id": "bratensosse", "name": "Bratensoße & fette Brühe", "kategorie": "kueche", "icon": "🍲",
+      "synonyme": ["Soße", "Sauce", "Bratensauce", "Bratenfond", "Fettige Brühe", "Suppe"],
+      "ampel": "rot",
+      "kanal": "Das Fett darin erstarrt im Kanal und bildet Ablagerungen – genau wie Bratfett.",
+      "wohin": ["restmuell"],
+      "hinweis": "Reste in einem Gefäß fest werden lassen und in den Restmüll.",
+      "pointe": "Lecker auf dem Teller, klebrig im Rohr.",
+      "geprueft": false
+    },
+    {
+      "id": "speisereste", "name": "Speisereste", "kategorie": "kueche", "icon": "🍝",
+      "synonyme": ["Essensreste", "Essen", "Tellerreste", "Lebensmittelreste", "Reste"],
+      "ampel": "rot",
+      "kanal": "Essensreste im Kanal sind ein Festmahl für Ratten. Außerdem bilden sie Ablagerungen und belasten die Kläranlage.",
+      "wohin": ["biotonne", "restmuell"],
+      "wohinHinweis": "Ob gekochte Reste in die Biotonne dürfen, regelt der örtliche Abfallentsorger.",
+      "pointe": "Das Klo ist kein Ratten-Lieferdienst.",
+      "geprueft": false
+    },
+    {
+      "id": "fleisch-fisch", "name": "Fleisch- & Fischreste", "kategorie": "kueche", "icon": "🍖",
+      "synonyme": ["Fleisch", "Fisch", "Knochen", "Gräten", "Wurst", "Hähnchen"],
+      "ampel": "rot",
+      "kanal": "Fleisch und Fisch faulen im Kanal, stinken und locken Ratten an. Knochen bleiben in Rohrbögen hängen.",
+      "wohin": ["restmuell"],
+      "wohinHinweis": "Bei manchen Abfallentsorgern auch Biotonne – bitte örtlich prüfen.",
+      "pointe": "Ratten lesen keine Speisekarte – sie riechen sie.",
+      "geprueft": false
+    },
+    {
+      "id": "kaffeesatz", "name": "Kaffeesatz", "kategorie": "kueche", "icon": "☕",
+      "synonyme": ["Kaffeepulver", "Kaffeefilter", "Kaffeepads", "Espressosatz"],
+      "ampel": "rot",
+      "kanal": "Kaffeesatz setzt sich wie Sand in Rohren und Siphon ab. Zusammen mit Fett entsteht eine feste Schicht.",
+      "wohin": ["biotonne"],
+      "hinweis": "Kapseln aus Alu oder Plastik gehören in den Gelben Sack.",
+      "pointe": "Macht dich wach – das Rohr macht es dicht.",
+      "geprueft": false
+    },
+    {
+      "id": "teebeutel", "name": "Teebeutel", "kategorie": "kueche", "icon": "🍵",
+      "synonyme": ["Tee", "Teeblätter", "Teesatz", "Teebeutel"],
+      "ampel": "rot",
+      "kanal": "Teebeutel zerfallen nicht schnell genug. Manche enthalten sogar Kunststofffasern.",
+      "wohin": ["biotonne"],
+      "pointe": "Lass den Tee ziehen – aber nicht durchs Rohr.",
+      "geprueft": false
+    },
+    {
+      "id": "obst-gemuese", "name": "Obst- & Gemüsereste", "kategorie": "kueche", "icon": "🥕",
+      "synonyme": ["Gemüse", "Obst", "Schalen", "Kartoffelschalen", "Bananenschale", "Apfel", "Salat", "Gemüseschalen"],
+      "ampel": "rot",
+      "kanal": "Schalen und Reste setzen sich in Rohren ab und faulen dort. Im Kompost werden sie zu wertvoller Erde.",
+      "wohin": ["biotonne"],
+      "pointe": "Aus der Biotonne wird Erde – aus dem Rohr nur Ärger.",
+      "geprueft": false
+    },
+    {
+      "id": "eierschalen", "name": "Eierschalen", "kategorie": "kueche", "icon": "🥚",
+      "synonyme": ["Ei", "Eier", "Eierschale"],
+      "ampel": "rot",
+      "kanal": "Schalenstückchen setzen sich wie Kies in Rohren ab.",
+      "wohin": ["biotonne"],
+      "pointe": "Das Huhn hat sich solche Mühe gegeben – ab in den Kompost!",
+      "geprueft": false
+    },
+    {
+      "id": "reis-nudeln", "name": "Reis & Nudeln", "kategorie": "kueche", "icon": "🍚",
+      "synonyme": ["Reis", "Nudeln", "Pasta", "Spaghetti", "Couscous"],
+      "ampel": "rot",
+      "kanal": "Reis und Nudeln quellen im Wasser weiter auf und kleben zusammen. So entstehen Pfropfen im Rohr.",
+      "wohin": ["biotonne", "restmuell"],
+      "wohinHinweis": "Ob gekochte Reste in die Biotonne dürfen, regelt der örtliche Abfallentsorger.",
+      "pointe": "Nudeln werden im Rohr immer dicker – genau wie nach dem Essen.",
+      "geprueft": false
+    },
+    {
+      "id": "mehl-teig", "name": "Mehl & Teigreste", "kategorie": "kueche", "icon": "🥖",
+      "synonyme": ["Mehl", "Teig", "Brotteig", "Kuchenteig", "Brot", "Brötchen"],
+      "ampel": "rot",
+      "kanal": "Mehl wird mit Wasser zu Kleister. Teig klebt in Rohren fest.",
+      "wohin": ["biotonne", "restmuell"],
+      "pointe": "Kleister ist super zum Basteln – nicht für Abwasserrohre.",
+      "geprueft": false
+    },
+    {
+      "id": "nudelwasser", "name": "Nudel- & Kochwasser", "kategorie": "kueche", "icon": "🫕",
+      "synonyme": ["Nudelwasser", "Kochwasser", "Kartoffelwasser", "Gemüsewasser"],
+      "ampel": "gelb",
+      "kanal": "Kochwasser ohne Fett darf in die Spüle. Ein Sieb fängt die Nudeln vorher auf.",
+      "wohin": ["ausguss"],
+      "pointe": "Wasser marsch – die Nudeln bleiben aber im Sieb!",
+      "geprueft": false
+    },
+    {
+      "id": "spuelwasser", "name": "Spülwasser", "kategorie": "kueche", "icon": "🍽️",
+      "synonyme": ["Abwaschwasser", "Spülmittel", "Geschirrspülmittel", "Abwasch"],
+      "ampel": "gelb",
+      "kanal": "Spülwasser ist normales Abwasser. Wische fettige Pfannen vorher mit Küchenpapier aus, dann bleibt weniger Fett im Rohr.",
+      "wohin": ["ausguss"],
+      "pointe": "Erst Pfanne auswischen, dann spülen – der Kanal sagt Danke.",
+      "geprueft": false
+    },
+    {
+      "id": "getraenkereste", "name": "Getränkereste", "kategorie": "kueche", "icon": "🥤",
+      "synonyme": ["Saft", "Limo", "Bier", "Wein", "Kaffee", "Cola", "Getränk", "Tee flüssig"],
+      "ampel": "gelb",
+      "kanal": "Reste aus dem Glas oder der Tasse darfst du in die Spüle gießen.",
+      "wohin": ["ausguss"],
+      "hinweis": "Leere Flaschen ins Altglas oder zurück in den Laden (Pfand).",
+      "pointe": "Ein Schluck für den Kanal ist okay – ein ganzes Fass nicht.",
+      "geprueft": false
+    },
+    {
+      "id": "milch", "name": "Milch & Milchprodukte", "kategorie": "kueche", "icon": "🥛",
+      "synonyme": ["Milch", "Sahne", "Joghurt", "Quark", "Saure Milch", "Molke"],
+      "ampel": "gelb",
+      "kanal": "Ein kleiner Rest Milch ist kein Problem. Große Mengen belasten aber die Kläranlage stark, weil Bakterien viel Sauerstoff für den Abbau brauchen.",
+      "wohin": ["ausguss", "restmuell"],
+      "wohinHinweis": "Reste aus dem Glas: Spüle. Volle Packungen oder Joghurtbecher: Restmüll, Becher in den Gelben Sack.",
+      "pointe": "Milch macht Kinder stark – Kläranlagen-Bakterien macht sie müde.",
+      "geprueft": false
+    },
+    {
+      "id": "kaugummi", "name": "Kaugummi", "kategorie": "sonstiges", "icon": "🫧",
+      "synonyme": ["Kaugummi", "Bubble Gum", "Chewing Gum"],
+      "ampel": "rot",
+      "kanal": "Kaugummi besteht aus Kunststoff-Kaumasse. Es löst sich nie auf und klebt an allem fest.",
+      "wohin": ["restmuell"],
+      "pointe": "Kaugummi klebt überall – im Kanal leider für immer.",
+      "geprueft": false
+    },
+    {
+      "id": "verpackungen", "name": "Verpackungen & Folien", "kategorie": "sonstiges", "icon": "🛍️",
+      "synonyme": ["Plastiktüte", "Folie", "Alufolie", "Frischhaltefolie", "Bonbonpapier", "Verpackung", "Plastik", "Tüte"],
+      "ampel": "rot",
+      "kanal": "Plastik zerfällt nicht. Es verstopft Rohre, wickelt sich um Pumpen und wird im Gewässer zu Mikroplastik.",
+      "wohin": ["gelber_sack"],
+      "pointe": "Plastik hält ewig – genau deshalb nicht ins Klo.",
+      "geprueft": false
+    },
+
+    {
+      "id": "tabletten", "name": "Tabletten & Kapseln", "kategorie": "medikamente", "icon": "💊",
+      "synonyme": ["Tablette", "Medikamente", "Arzneimittel", "Pillen", "Kapseln", "Schmerztabletten", "Altmedikamente", "Ibuprofen", "Paracetamol"],
+      "ampel": "rot",
+      "kanal": "Kläranlagen können viele Arzneistoffe nicht vollständig entfernen. Die Reste gelangen als Spurenstoffe in Flüsse und Seen und schaden dort Fischen und Kleinstlebewesen.",
+      "wohin": ["restmuell", "apotheke"],
+      "wohinHinweis": "In Zeitungspapier oder eine Tüte einwickeln, damit Kinder und Tiere nicht herankommen. Bitte die örtliche Regelung prüfen.",
+      "pointe": "Fische haben keine Kopfschmerzen – sie brauchen kein Ibuprofen.",
+      "geprueft": false
+    },
+    {
+      "id": "fluessige-medikamente", "name": "Hustensaft & Tropfen", "kategorie": "medikamente", "icon": "🧴",
+      "synonyme": ["Hustensaft", "Tropfen", "Saft Medizin", "Nasenspray", "Augentropfen", "Flüssige Medikamente"],
+      "ampel": "rot",
+      "kanal": "Auch flüssige Medikamente enthalten Wirkstoffe, die die Kläranlage nicht ganz herausfiltert.",
+      "wohin": ["restmuell", "apotheke"],
+      "wohinHinweis": "Mit Flasche und Deckel in den Restmüll, nicht ausgießen.",
+      "pointe": "Der Fluss hat keinen Husten.",
+      "geprueft": false
+    },
+    {
+      "id": "salben", "name": "Salben & Schmerzgel", "kategorie": "medikamente", "icon": "🧴",
+      "synonyme": ["Salbe", "Creme", "Schmerzgel", "Diclofenac", "Voltaren", "Sportgel"],
+      "ampel": "rot",
+      "kanal": "Der Schmerzwirkstoff Diclofenac ist ein bekannter Spurenstoff. Er wird in Kläranlagen kaum abgebaut und kann die Nieren von Fischen schädigen.",
+      "wohin": ["restmuell", "apotheke"],
+      "hinweis": "Nach dem Eincremen erst Hände mit einem Tuch abwischen, dann waschen – so gelangt weniger ins Abwasser.",
+      "pointe": "Fische haben keine Zerrung – Diclofenac hilft ihnen nicht.",
+      "geprueft": false
+    },
+    {
+      "id": "antibiotika", "name": "Antibiotika", "kategorie": "medikamente", "icon": "🦠",
+      "synonyme": ["Antibiotikum", "Penicillin", "Amoxicillin"],
+      "ampel": "rot",
+      "kanal": "Antibiotika im Abwasser können dazu beitragen, dass Bakterien unempfindlich werden. Dann wirken die Medikamente bei Menschen schlechter.",
+      "wohin": ["restmuell", "apotheke"],
+      "pointe": "Antibiotika im Kanal sind ein Trainingslager für Superbakterien.",
+      "geprueft": false
+    },
+    {
+      "id": "hormone", "name": "Hormonpräparate (z. B. Pille)", "kategorie": "medikamente", "icon": "💊",
+      "synonyme": ["Antibabypille", "Pille", "Hormone", "Verhütungspille", "Hormontabletten"],
+      "ampel": "rot",
+      "kanal": "Schon winzige Mengen künstlicher Hormone können im Gewässer die Fortpflanzung von Fischen stören.",
+      "wohin": ["restmuell", "apotheke"],
+      "pointe": "Fische wollen selbst entscheiden, ob sie Familie gründen.",
+      "geprueft": false
+    },
+    {
+      "id": "spritzen", "name": "Spritzen & Kanülen", "kategorie": "medikamente", "icon": "💉",
+      "synonyme": ["Spritze", "Kanüle", "Nadel", "Insulinnadel", "Pen-Nadel", "Lanzette"],
+      "ampel": "rot",
+      "kanal": "Nadeln sind für Menschen in Pumpwerken und Kläranlagen gefährlich – sie können sich daran stechen und infizieren.",
+      "wohin": ["restmuell"],
+      "wohinHinweis": "In einem durchstichfesten, verschlossenen Behälter (z. B. leere Plastikflasche) in den Restmüll.",
+      "pointe": "Piks! Das wünscht sich niemand bei der Arbeit.",
+      "geprueft": false
+    },
+    {
+      "id": "thermometer", "name": "Quecksilber-Fieberthermometer", "kategorie": "medikamente", "icon": "🌡️",
+      "synonyme": ["Fieberthermometer", "Thermometer", "Quecksilber"],
+      "ampel": "rot",
+      "kanal": "Quecksilber ist ein giftiges Schwermetall. Es reichert sich in Fischen an und damit auch in unserer Nahrung.",
+      "wohin": ["schadstoff"],
+      "hinweis": "Digitale Thermometer gehören wegen der Batterie zum Elektroschrott bzw. zur Batteriesammlung.",
+      "pointe": "Quecksilber hat im Wasser nichts verloren – außer Fische.",
+      "geprueft": false
+    },
+    {
+      "id": "nikotinpflaster", "name": "Nikotinpflaster", "kategorie": "medikamente", "icon": "🩹",
+      "synonyme": ["Nikotin", "Pflaster Nikotin", "Hormonpflaster", "Schmerzpflaster"],
+      "ampel": "rot",
+      "kanal": "Gebrauchte Wirkstoffpflaster enthalten noch viel Wirkstoff. Der ist giftig für Wasserlebewesen.",
+      "wohin": ["restmuell"],
+      "hinweis": "Klebeseiten zusammenfalten und in den Restmüll.",
+      "pointe": "Auch Fische wollen nicht rauchen – nicht mal per Pflaster.",
+      "geprueft": false
+    },
+    {
+      "id": "vitamine", "name": "Vitamine & Nahrungsergänzung", "kategorie": "medikamente", "icon": "🍊",
+      "synonyme": ["Vitamintabletten", "Nahrungsergänzungsmittel", "Brausetabletten", "Globuli", "Magnesium"],
+      "ampel": "rot",
+      "kanal": "Auch diese Tabletten gehören nicht ins Abwasser. Die Regel ist einfach: Kein Medikament und keine Tablette ins Klo.",
+      "wohin": ["restmuell"],
+      "pointe": "Der Kanal ist schon gesund genug.",
+      "geprueft": false
+    },
+
+    {
+      "id": "farbe", "name": "Wandfarbe & Farbreste", "kategorie": "chemie", "icon": "🎨",
+      "synonyme": ["Farbe", "Dispersionsfarbe", "Wandfarbe", "Acrylfarbe", "Farbreste", "Latexfarbe"],
+      "ampel": "rot",
+      "kanal": "Farbe verklebt Rohre und enthält Bindemittel und Zusatzstoffe, die die Kläranlage belasten.",
+      "wohin": ["restmuell", "schadstoff"],
+      "wohinHinweis": "Wasserbasierte Farbreste im offenen Eimer eintrocknen lassen, dann Restmüll. Flüssige oder lösemittelhaltige Farben zum Schadstoffmobil.",
+      "pointe": "Das Rohr will nicht renoviert werden – jedenfalls nicht so.",
+      "geprueft": false
+    },
+    {
+      "id": "pinsel", "name": "Pinsel auswaschen", "kategorie": "chemie", "icon": "🖌️",
+      "synonyme": ["Pinsel", "Farbrolle", "Malerrolle", "Pinsel reinigen", "Wasserfarbe", "Tuschkasten"],
+      "ampel": "gelb",
+      "kanal": "Bei Wasserfarben aus dem Tuschkasten ist das kein Problem. Bei Wandfarbe: Pinsel erst gründlich ausstreichen, dann nur kurz ausspülen.",
+      "wohin": ["ausguss"],
+      "hinweis": "Pinsel mit Lack oder Öl-Farbe nie im Waschbecken auswaschen – die Reste mit Verdünner gehören zum Schadstoffmobil.",
+      "pointe": "Erst ausstreichen, dann waschen – so bleibt der Kanal ungeschminkt.",
+      "geprueft": false
+    },
+    {
+      "id": "lack-loesungsmittel", "name": "Lack, Verdünner & Lösungsmittel", "kategorie": "chemie", "icon": "🛢️",
+      "synonyme": ["Lack", "Verdünner", "Terpentin", "Lösungsmittel", "Nitroverdünnung", "Holzschutzmittel", "Lasur", "Pinselreiniger"],
+      "ampel": "rot",
+      "kanal": "Lösungsmittel können im Kanal gefährliche, explosive Dämpfe bilden. Sie vergiften die Bakterien, die in der Kläranlage das Wasser reinigen.",
+      "wohin": ["schadstoff"],
+      "pointe": "Explosive Stimmung ist auf Partys schön – im Kanal nicht.",
+      "geprueft": false
+    },
+    {
+      "id": "motoroel", "name": "Motoröl & Altöl", "kategorie": "chemie", "icon": "🛢️",
+      "synonyme": ["Altöl", "Motoröl", "Getriebeöl", "Hydrauliköl", "Kettenöl", "Schmieröl"],
+      "ampel": "rot",
+      "kanal": "Schon kleine Mengen Öl können riesige Mengen Wasser verunreinigen. Öl bildet Filme auf dem Wasser und schadet Pflanzen und Tieren.",
+      "wohin": ["handel", "schadstoff"],
+      "wohinHinweis": "Wer Motoröl verkauft, muss Altöl zurücknehmen. Kassenbon aufheben!",
+      "pointe": "Motoröl gehört in den Motor – nicht in den Fluss.",
+      "geprueft": false
+    },
+    {
+      "id": "benzin", "name": "Benzin & Diesel", "kategorie": "chemie", "icon": "⛽",
+      "synonyme": ["Benzin", "Diesel", "Kraftstoff", "Sprit", "Petroleum", "Lampenöl"],
+      "ampel": "rot",
+      "kanal": "Benzindämpfe können sich im Kanal sammeln und explodieren. Das ist lebensgefährlich – auch für Menschen, die im Kanal arbeiten.",
+      "wohin": ["schadstoff"],
+      "pointe": "Im Kanal ist schon genug los – Feuerwerk braucht keiner.",
+      "geprueft": false
+    },
+    {
+      "id": "frostschutz", "name": "Frostschutz & Kühlmittel", "kategorie": "chemie", "icon": "❄️",
+      "synonyme": ["Frostschutzmittel", "Kühlerflüssigkeit", "Scheibenfrostschutz", "Bremsflüssigkeit", "Glykol"],
+      "ampel": "rot",
+      "kanal": "Diese Flüssigkeiten sind giftig für Menschen, Tiere und die Bakterien der Kläranlage.",
+      "wohin": ["schadstoff"],
+      "pointe": "Frostschutz im Kanal? Das Abwasser friert nicht – versprochen.",
+      "geprueft": false
+    },
+    {
+      "id": "pflanzenschutz", "name": "Pflanzenschutz & Unkrautvernichter", "kategorie": "chemie", "icon": "🌱",
+      "synonyme": ["Unkrautvernichter", "Pflanzenschutzmittel", "Insektenspray", "Insektizid", "Pestizid", "Schneckenkorn", "Rattengift", "Herbizid"],
+      "ampel": "rot",
+      "kanal": "Pflanzenschutzmittel sind dafür gemacht, Lebewesen zu töten. Im Gewässer schaden sie Insekten, Fischen und Pflanzen.",
+      "wohin": ["schadstoff"],
+      "hinweis": "Auch nicht den Rest im Garten auf die Einfahrt sprühen – der Regen spült ihn direkt ins Gewässer.",
+      "pointe": "Der Fluss hat kein Unkraut – er hat Fische.",
+      "geprueft": false
+    },
+    {
+      "id": "rohrreiniger", "name": "Chemischer Rohrreiniger", "kategorie": "chemie", "icon": "⚗️",
+      "synonyme": ["Rohrreiniger", "Abflussreiniger", "Abflussfrei", "Rohrfrei", "Drano", "Abfluss verstopft"],
+      "ampel": "gelb",
+      "kanal": "Rohrreiniger sind stark ätzend. Sie können Dichtungen und Kunststoffrohre schädigen und belasten die Kläranlage. Oft hilft er auch gar nicht.",
+      "wohin": ["ausguss"],
+      "hinweis": "Besser zuerst eine Saugglocke (Pümpel) oder eine Rohrspirale nehmen. Reste und alte Packungen zum Schadstoffmobil.",
+      "pointe": "Ein Pümpel kostet wenig und ätzt nicht – Superheld ohne Umhang.",
+      "geprueft": false
+    },
+    {
+      "id": "putzmittel", "name": "Putzmittel & WC-Reiniger", "kategorie": "chemie", "icon": "🧽",
+      "synonyme": ["WC-Reiniger", "Allzweckreiniger", "Badreiniger", "Glasreiniger", "Putzmittel", "Kloreiniger", "Badreiniger", "WC-Steine"],
+      "ampel": "gelb",
+      "kanal": "Beim normalen Putzen nach Anleitung ist das in Ordnung. Viel hilft aber nicht viel: Zu viel Reiniger belastet die Kläranlage unnötig.",
+      "wohin": ["ausguss"],
+      "hinweis": "Reste und volle Flaschen nicht ausgießen. Leere Flaschen in den Gelben Sack.",
+      "pointe": "Sauber wird’s mit einem Spritzer – nicht mit der halben Flasche.",
+      "geprueft": false
+    },
+    {
+      "id": "chlorreiniger", "name": "Chlorreiniger", "kategorie": "chemie", "icon": "⚠️",
+      "synonyme": ["Chlor", "Bleiche", "Hygienereiniger", "Danklorix", "Javel"],
+      "ampel": "gelb",
+      "kanal": "Chlor tötet nicht nur Keime im Bad, sondern auch die nützlichen Bakterien in der Kläranlage. Nur sparsam und wenn wirklich nötig.",
+      "wohin": ["ausguss"],
+      "hinweis": "Nie mit sauren Reinigern (z. B. Entkalker) mischen – dabei entsteht giftiges Chlorgas!",
+      "pointe": "Für ein sauberes Klo braucht es kein Chemielabor.",
+      "geprueft": false
+    },
+    {
+      "id": "entkalker", "name": "Entkalker", "kategorie": "chemie", "icon": "🫖",
+      "synonyme": ["Entkalker", "Essigreiniger", "Zitronensäure", "Kalklöser"],
+      "ampel": "gelb",
+      "kanal": "Nach Anleitung verwendet, darf die verbrauchte Lösung in den Ausguss. Reste und volle Packungen nicht.",
+      "wohin": ["ausguss"],
+      "pointe": "Kalk weg, Kanal okay – solange man nicht übertreibt.",
+      "geprueft": false
+    },
+    {
+      "id": "desinfektionsmittel", "name": "Desinfektionsmittel", "kategorie": "chemie", "icon": "🧴",
+      "synonyme": ["Desinfektion", "Händedesinfektion", "Sagrotan", "Flächendesinfektion"],
+      "ampel": "gelb",
+      "kanal": "Im normalen Haushalt braucht man selten Desinfektionsmittel. Größere Mengen schaden den Bakterien der Kläranlage.",
+      "wohin": ["ausguss"],
+      "hinweis": "Reste und volle Flaschen zum Schadstoffmobil.",
+      "pointe": "Die Kläranlagen-Bakterien sind die Guten – bitte nicht wegdesinfizieren.",
+      "geprueft": false
+    },
+    {
+      "id": "fotochemie", "name": "Fotochemikalien & Laborchemie", "kategorie": "chemie", "icon": "📷",
+      "synonyme": ["Fotochemikalien", "Entwickler", "Fixierer", "Säure", "Lauge", "Chemikalien", "Experimentierkasten", "Batteriesäure"],
+      "ampel": "rot",
+      "kanal": "Chemikalien können Rohre angreifen, gefährliche Gase bilden und die Kläranlage stören.",
+      "wohin": ["schadstoff"],
+      "pointe": "Im Kanal wird nicht experimentiert.",
+      "geprueft": false
+    },
+    {
+      "id": "batterien", "name": "Batterien & Akkus", "kategorie": "chemie", "icon": "🔋",
+      "synonyme": ["Batterie", "Akku", "Knopfzelle", "Powerbank", "Lithium-Akku"],
+      "ampel": "rot",
+      "kanal": "Batterien enthalten Schwermetalle und Chemikalien. Lithium-Akkus können sogar brennen.",
+      "wohin": ["handel"],
+      "hinweis": "Sammelboxen gibt es in fast jedem Supermarkt und Drogeriemarkt.",
+      "pointe": "Batterien geben Power – aber keine gute Energie im Kanal.",
+      "geprueft": false
+    },
+    {
+      "id": "zement-gips", "name": "Zement, Gips & Fliesenkleber", "kategorie": "chemie", "icon": "🧱",
+      "synonyme": ["Zement", "Gips", "Fliesenkleber", "Mörtel", "Beton", "Spachtelmasse", "Fugenmasse", "Estrich"],
+      "ampel": "rot",
+      "kanal": "Zement und Gips werden im Rohr steinhart. Dann muss ein Fräsroboter das Rohr wieder freifräsen – das ist teuer.",
+      "wohin": ["restmuell", "wertstoffhof"],
+      "wohinHinweis": "Eimer und Werkzeug im Freien in einem Eimer Wasser abwaschen, absetzen lassen, den festen Rest in den Restmüll. Größere Mengen zum Wertstoffhof.",
+      "pointe": "Wer Zement ins Rohr kippt, betoniert seine Zukunft – und die des Kanals.",
+      "geprueft": false
+    },
+    {
+      "id": "silikon", "name": "Silikon & Bauschaum", "kategorie": "chemie", "icon": "🔧",
+      "synonyme": ["Silikon", "Bauschaum", "PU-Schaum", "Acryl Fugen", "Kartusche"],
+      "ampel": "rot",
+      "kanal": "Silikon und Schaum härten aus und sind aus Kunststoff. Sie bleiben im Rohr kleben.",
+      "wohin": ["restmuell", "schadstoff"],
+      "wohinHinweis": "Leere, ausgehärtete Kartuschen: Restmüll. Volle Dosen Bauschaum: Schadstoffmobil.",
+      "pointe": "Dichtet Fugen ab – leider auch Rohre.",
+      "geprueft": false
+    },
+
+    {
+      "id": "katzenstreu", "name": "Katzenstreu", "kategorie": "haustier", "icon": "🐈",
+      "synonyme": ["Katzenklo", "Katzensand", "Klumpstreu", "Bentonit", "Katzenklostreu", "Katzenstreu biologisch"],
+      "ampel": "rot",
+      "kanal": "Klumpstreu wird mit Wasser fest wie Beton. Auch „spülbare“ Streu setzt sich in Rohren ab. Katzenkot kann zudem Krankheitserreger enthalten.",
+      "wohin": ["restmuell"],
+      "hinweis": "Auch pflanzliche Streu bitte nicht ins Klo – viele Abfallentsorger wollen sie auch nicht in der Biotonne.",
+      "pointe": "Die Katze geht aufs Katzenklo – nicht das Katzenklo aufs Klo.",
+      "geprueft": false
+    },
+    {
+      "id": "hundekot", "name": "Hundekot (mit Beutel)", "kategorie": "haustier", "icon": "🐕",
+      "synonyme": ["Hundekot", "Hundehaufen", "Gassibeutel", "Kotbeutel", "Hundekotbeutel"],
+      "ampel": "rot",
+      "kanal": "Die Beutel zerfallen nicht – auch die „kompostierbaren“ nicht schnell genug. Sie wickeln sich in Pumpen und Rohren fest.",
+      "wohin": ["restmuell"],
+      "pointe": "Der Hund hat seinen Job gemacht – der Beutel gehört in die Tonne.",
+      "geprueft": false
+    },
+    {
+      "id": "kleintierstreu", "name": "Kleintierstreu & Heu", "kategorie": "haustier", "icon": "🐹",
+      "synonyme": ["Hamsterstreu", "Kaninchenstreu", "Heu", "Stroh", "Holzspäne", "Einstreu", "Meerschweinchen"],
+      "ampel": "rot",
+      "kanal": "Streu und Heu quellen auf und verstopfen Rohre.",
+      "wohin": ["biotonne", "restmuell"],
+      "wohinHinweis": "Pflanzliche Streu darf je nach Abfallentsorger in die Biotonne – bitte örtlich prüfen.",
+      "pointe": "Der Hamster baut ein Nest – das Rohr bitte nicht.",
+      "geprueft": false
+    },
+    {
+      "id": "tote-fische", "name": "Tote Fische", "kategorie": "haustier", "icon": "🐟",
+      "synonyme": ["Goldfisch", "Fisch tot", "Aquarienfisch", "Fisch beerdigen", "Toter Fisch"],
+      "ampel": "rot",
+      "kanal": "Ein toter Fisch kann Krankheitserreger mitbringen. Ins Klo gehört er nicht – auch wenn das in Filmen oft so gezeigt wird.",
+      "wohin": ["restmuell"],
+      "hinweis": "Kleine Tiere darf man oft im eigenen Garten beerdigen. Lebende Fische niemals aussetzen oder runterspülen!",
+      "pointe": "Nein, Goldi schwimmt nicht zurück ins Meer. Das Klo führt zur Kläranlage.",
+      "geprueft": false
+    },
+    {
+      "id": "aquarienwasser", "name": "Aquarienwasser", "kategorie": "haustier", "icon": "🐠",
+      "synonyme": ["Aquarium", "Aquariumwasser", "Teichwasser", "Wasserwechsel"],
+      "ampel": "gelb",
+      "kanal": "Das Wasser vom Wasserwechsel darf ins Klo – ohne Kies, Pflanzen und Fische.",
+      "wohin": ["ausguss"],
+      "hinweis": "Tipp: Aquarienwasser ist ein prima Dünger für Zimmerpflanzen.",
+      "pointe": "Wasser darf gehen – Nemo bleibt da.",
+      "geprueft": false
+    },
+    {
+      "id": "tierhaare", "name": "Tierhaare", "kategorie": "haustier", "icon": "🐩",
+      "synonyme": ["Hundehaare", "Katzenhaare", "Fell", "Bürstenhaare Tier"],
+      "ampel": "rot",
+      "kanal": "Tierhaare verfilzen genau wie Menschenhaare – nur meistens in größeren Mengen.",
+      "wohin": ["restmuell"],
+      "hinweis": "Nach dem Hundebad ein Sieb in den Abfluss legen.",
+      "pointe": "Fell gehört an den Hund – nicht ins Rohr.",
+      "geprueft": false
+    },
+    {
+      "id": "tiermedikamente", "name": "Flohmittel & Tiermedikamente", "kategorie": "haustier", "icon": "🐶",
+      "synonyme": ["Flohmittel", "Spot-on", "Wurmkur", "Zeckenmittel", "Flohhalsband", "Tierarznei"],
+      "ampel": "rot",
+      "kanal": "Floh- und Zeckenmittel enthalten Insektengifte. Schon winzige Mengen schaden Wasserinsekten in Bächen und Flüssen.",
+      "wohin": ["restmuell"],
+      "hinweis": "Frisch behandelte Hunde ein paar Tage nicht baden und nicht in Bäche springen lassen.",
+      "pointe": "Gegen Flöhe – aber leider auch gegen Libellenlarven.",
+      "geprueft": false
+    },
+    {
+      "id": "vogelsand", "name": "Vogelsand", "kategorie": "haustier", "icon": "🐦",
+      "synonyme": ["Vogelsand", "Käfigsand", "Vogelstreu", "Vogelfutter"],
+      "ampel": "rot",
+      "kanal": "Sand setzt sich in Rohren und im Kanal ab und muss mühsam herausgespült werden.",
+      "wohin": ["restmuell"],
+      "pointe": "Wellensittich: happy. Kanal: verstopft.",
+      "geprueft": false
+    },
+
+    {
+      "id": "zigaretten", "name": "Zigarettenkippen", "kategorie": "sonstiges", "icon": "🚬",
+      "synonyme": ["Kippe", "Zigarette", "Zigarettenstummel", "Filter", "Tabak", "E-Zigarette", "Asche Zigarette"],
+      "ampel": "rot",
+      "kanal": "Zigarettenfilter sind aus Kunststoff und voller Giftstoffe wie Nikotin. Die Gifte lösen sich im Wasser und schaden Fischen und Kleinstlebewesen.",
+      "wohin": ["restmuell"],
+      "gully": "Eine Kippe im Gully landet bei uns ohne Reinigung direkt im Bach!",
+      "hinweis": "E-Zigaretten gehören wegen des Akkus zur Elektro- oder Batteriesammlung.",
+      "pointe": "Fische sind Nichtraucher. Alle.",
+      "geprueft": false
+    },
+    {
+      "id": "autowaesche", "name": "Autowaschwasser", "kategorie": "sonstiges", "icon": "🚗",
+      "synonyme": ["Auto waschen", "Autowäsche", "Autoshampoo", "Felgenreiniger", "Motorwäsche"],
+      "ampel": "rot",
+      "kanal": "Beim Autowaschen lösen sich Öl, Bremsstaub und Schwermetalle. Über den Regenwasserkanal fließt das ungeklärt ins nächste Gewässer.",
+      "wohin": ["waschanlage"],
+      "gully": "Auf der Straße oder Einfahrt waschen heißt: Das Schmutzwasser läuft in den Gully und direkt in den Bach.",
+      "pointe": "Dein Auto glänzt – der Bach leider nicht.",
+      "geprueft": false
+    },
+    {
+      "id": "wischwasser", "name": "Wischwasser (Putzeimer)", "kategorie": "sonstiges", "icon": "🪣",
+      "synonyme": ["Putzwasser", "Wischwasser", "Putzeimer", "Bodenwischen", "Schmutzwasser"],
+      "ampel": "gelb",
+      "kanal": "Putzwasser darf ins Klo oder in den Ausguss – dann geht es zur Kläranlage.",
+      "wohin": ["ausguss"],
+      "gully": "Nie in den Gully auf der Straße kippen! Der führt direkt in den Bach.",
+      "pointe": "Klo ja, Gully nein – das merkt sich sogar der Wischmopp.",
+      "geprueft": false
+    },
+    {
+      "id": "laub", "name": "Laub & Rasenschnitt", "kategorie": "sonstiges", "icon": "🍁",
+      "synonyme": ["Laub", "Blätter", "Rasenschnitt", "Gras", "Gartenabfälle", "Unkraut"],
+      "ampel": "rot",
+      "kanal": "Laub verstopft Straßeneinläufe. Bei Starkregen kann das Wasser dann nicht ablaufen – die Straße wird zum See.",
+      "wohin": ["biotonne"],
+      "gully": "Laub nicht in den Gully fegen und Einläufe vor dem Haus freihalten.",
+      "pointe": "Im Herbst ist der Gully der beliebteste Ort für Blätter. Leider.",
+      "geprueft": false
+    },
+    {
+      "id": "erde-sand", "name": "Blumenerde, Sand & Kies", "kategorie": "sonstiges", "icon": "🪴",
+      "synonyme": ["Erde", "Blumenerde", "Sand", "Kies", "Steine", "Sandkasten", "Topfpflanze"],
+      "ampel": "rot",
+      "kanal": "Erde und Sand setzen sich im Kanal ab und machen die Rohre enger. In der Kläranlage müssen sie aufwendig im Sandfang abgetrennt werden.",
+      "wohin": ["biotonne", "restmuell"],
+      "pointe": "Der Kanal ist kein Sandkasten.",
+      "geprueft": false
+    },
+    {
+      "id": "asche", "name": "Asche & Grillkohle", "kategorie": "sonstiges", "icon": "🔥",
+      "synonyme": ["Asche", "Grillkohle", "Holzkohle", "Kaminasche", "Ofenasche"],
+      "ampel": "rot",
+      "kanal": "Asche bildet Ablagerungen im Kanal. Grillasche kann außerdem Schadstoffe enthalten.",
+      "wohin": ["restmuell"],
+      "hinweis": "Nur vollständig abgekühlte Asche in die Tonne – sonst brennt es!",
+      "pointe": "Asche zu Asche – aber bitte in die Tonne.",
+      "geprueft": false
+    },
+    {
+      "id": "kerzenwachs", "name": "Kerzenwachs", "kategorie": "sonstiges", "icon": "🕯️",
+      "synonyme": ["Wachs", "Kerze", "Teelicht", "Wachsreste", "Duftwachs"],
+      "ampel": "rot",
+      "kanal": "Flüssiges Wachs wird im kalten Rohr sofort hart – wie Fett, nur noch schlimmer.",
+      "wohin": ["restmuell"],
+      "hinweis": "Alu-Schälchen von Teelichtern in den Gelben Sack.",
+      "pointe": "Romantisch auf dem Tisch, betonhart im Rohr.",
+      "geprueft": false
+    },
+    {
+      "id": "textilien", "name": "Socken, Strumpfhosen & Textilien", "kategorie": "sonstiges", "icon": "🧦",
+      "synonyme": ["Socke", "Strumpfhose", "Unterhose", "Kleidung", "Stoff", "Nylonstrumpf", "Unterwäsche"],
+      "ampel": "rot",
+      "kanal": "Stoffe zerfallen nicht und wickeln sich um Pumpenlaufräder. Nylonstrümpfe sind fast unzerreißbar.",
+      "wohin": ["altkleider", "restmuell"],
+      "pointe": "Die verlorene Socke ist nicht im Klo – und das soll auch so bleiben.",
+      "geprueft": false
+    },
+    {
+      "id": "lappen", "name": "Putzlappen & Schwämme", "kategorie": "sonstiges", "icon": "🧽",
+      "synonyme": ["Lappen", "Putzlappen", "Schwamm", "Spültuch", "Mikrofasertuch", "Wischlappen", "Scheuerschwamm"],
+      "ampel": "rot",
+      "kanal": "Lappen und Mikrofasertücher sind unverwüstlich. Im Pumpwerk verwandeln sie sich in dicke Zöpfe.",
+      "wohin": ["restmuell"],
+      "pointe": "Beim Putzen top, im Pumpwerk ein Flop.",
+      "geprueft": false
+    },
+    {
+      "id": "handschuhe", "name": "Einweghandschuhe & Masken", "kategorie": "sonstiges", "icon": "🧤",
+      "synonyme": ["Handschuhe", "Einmalhandschuhe", "Gummihandschuhe", "Maske", "Mundschutz", "FFP2", "Latexhandschuhe"],
+      "ampel": "rot",
+      "kanal": "Gummi, Latex und Vlies zerfallen nicht. Sie verfangen sich in Pumpen und Rechen.",
+      "wohin": ["restmuell"],
+      "pointe": "Handschuhe schützen Hände – nicht Pumpen.",
+      "geprueft": false
+    },
+    {
+      "id": "spielzeug", "name": "Spielzeug", "kategorie": "sonstiges", "icon": "🧸",
+      "synonyme": ["Spielzeug", "Lego", "Legostein", "Playmobil", "Gummiente", "Murmel", "Ball", "Flummi"],
+      "ampel": "rot",
+      "kanal": "Spielzeug bleibt meist schon im eigenen Rohr stecken. Dann hilft nur noch die Rohrreinigung.",
+      "wohin": ["restmuell"],
+      "hinweis": "Ganzes Spielzeug lieber verschenken. Kaputtes Elektrospielzeug zum Elektroschrott.",
+      "pointe": "Die Gummiente will baden – aber in der Wanne, nicht im Kanal.",
+      "geprueft": false
+    },
+    {
+      "id": "pflanzenreste", "name": "Schnittblumen & Zimmerpflanzen", "kategorie": "sonstiges", "icon": "💐",
+      "synonyme": ["Blumen", "Blumenstrauß", "Schnittblumen", "Pflanze", "Kaktus"],
+      "ampel": "rot",
+      "kanal": "Stängel und Blätter verfangen sich in Rohren und faulen dort.",
+      "wohin": ["biotonne"],
+      "hinweis": "Das Blumenwasser selbst darf in den Ausguss.",
+      "pointe": "Blumen gehören auf den Kompost – nicht auf den Grund des Kanals.",
+      "geprueft": false
+    },
+    {
+      "id": "haarfaerbemittel", "name": "Haarfärbemittel-Reste", "kategorie": "hygiene", "icon": "💇‍♀️",
+      "synonyme": ["Haarfarbe", "Tönung", "Blondierung", "Haarfärbemittel", "Färben"],
+      "ampel": "rot",
+      "kanal": "Beim Ausspülen der Haare ist ein wenig Farbe im Abwasser unvermeidbar. Angerührte, übrige Farbe aber enthält viele Chemikalien und gehört nicht ins Wasser.",
+      "wohin": ["restmuell", "schadstoff"],
+      "wohinHinweis": "Kleine Reste eintrocknen lassen und in den Restmüll. Volle Packungen zum Schadstoffmobil.",
+      "pointe": "Neue Haarfarbe für dich – nicht für den Fluss.",
+      "geprueft": false
+    },
+    {
+      "id": "sonnencreme", "name": "Sonnencreme & Bodylotion", "kategorie": "hygiene", "icon": "🧴",
+      "synonyme": ["Sonnencreme", "Bodylotion", "Creme", "Gesichtscreme", "Babyöl", "Körperöl"],
+      "ampel": "rot",
+      "kanal": "Abgelaufene Cremes nicht ins Klo spülen. Sie enthalten Fette, UV-Filter und andere Stoffe, die die Kläranlage nicht ganz entfernt.",
+      "wohin": ["restmuell"],
+      "hinweis": "Leere Tuben und Flaschen in den Gelben Sack, Reste mit Verpackung in den Restmüll.",
+      "pointe": "Der Kanal braucht keinen Lichtschutzfaktor – da unten scheint keine Sonne.",
+      "geprueft": false
+    },
+    {
+      "id": "zahnbuerste", "name": "Zahnbürste", "kategorie": "hygiene", "icon": "🪥",
+      "synonyme": ["Zahnbürste", "Bürstenkopf", "Aufsteckbürste"],
+      "ampel": "rot",
+      "kanal": "Fällt eine Zahnbürste ins Klo, bitte herausfischen! Sie bleibt im Rohr hängen und fängt dort alles andere auf.",
+      "wohin": ["restmuell"],
+      "hinweis": "Elektrische Zahnbürsten gehören zum Elektroschrott.",
+      "pointe": "Die Zahnbürste putzt Zähne – das Rohr putzt sie nicht.",
+      "geprueft": false
+    },
+    {
+      "id": "lebende-tiere", "name": "Lebende Tiere", "kategorie": "haustier", "icon": "🐢",
+      "synonyme": ["Schildkröte", "Fisch lebend", "Krebs", "Spinne", "Insekt", "Lebender Fisch"],
+      "ampel": "rot",
+      "kanal": "Tiere gehören niemals ins Klo – das ist Tierquälerei. Ausgesetzte Aquarientiere können außerdem heimische Arten verdrängen.",
+      "wohin": ["handel"],
+      "wohinHinweis": "Zoohandlung, Tierheim oder Tierschutzverein fragen – dort hilft man weiter. Eine Spinne einfach mit Glas und Papier nach draußen tragen.",
+      "pointe": "Das Klo ist keine Rutsche ins Abenteuerland.",
+      "geprueft": false
+    },
+    {
+      "id": "gummiband", "name": "Gummibänder & Haargummis", "kategorie": "sonstiges", "icon": "➰",
+      "synonyme": ["Haargummi", "Gummiband", "Zopfgummi", "Haarspange", "Haarnadel"],
+      "ampel": "rot",
+      "kanal": "Gummis sind ideale Anker: An ihnen verfangen sich Haare und Tücher und bilden Zöpfe.",
+      "wohin": ["restmuell"],
+      "pointe": "Zöpfe sind auf dem Kopf schick – im Pumpwerk nicht.",
+      "geprueft": false
+    },
+    {
+      "id": "papier-pappe", "name": "Zeitung, Pappe & Papierreste", "kategorie": "sonstiges", "icon": "📰",
+      "synonyme": ["Zeitung", "Pappe", "Karton", "Klorolle Pappe", "Papier", "Schreibpapier", "Servietten"],
+      "ampel": "rot",
+      "kanal": "Nur Klopapier zerfällt schnell. Zeitung, Servietten und Pappe sind viel fester und verstopfen das Rohr.",
+      "wohin": ["altpapier", "restmuell"],
+      "wohinHinweis": "Sauberes Papier und Pappe ins Altpapier, benutzte Servietten in den Restmüll.",
+      "pointe": "Kein Klopapier mehr? Lieber zum Nachbarn als zur Zeitung greifen.",
+      "geprueft": false
+    }
+  ]
+}
