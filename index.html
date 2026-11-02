@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Klo-Check – Darf das ins Klo?</title>
+  <meta name="description" content="Prüfe in Sekunden, ob etwas ins Klo oder in den Abfluss darf – und wohin es stattdessen gehört.">
+  <meta name="theme-color" content="#8fd8f8">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
+
+  <header class="kopf">
+    <a class="kopf__marke" href="#/" aria-label="Klo-Check Startseite">
+      <span class="kopf__tropfen" aria-hidden="true">💧</span>
+      <span>
+        <span class="kopf__titel" data-i18n="app.titel">Klo-Check</span>
+        <span class="kopf__unter" data-i18n="app.untertitel">Darf das ins Klo?</span>
+      </span>
+    </a>
+  </header>
+
+  <main id="inhalt" tabindex="-1">
+    <p class="laden" data-i18n="laden">Lade …</p>
+  </main>
+
+  <nav class="leiste" aria-label="Hauptnavigation">
+    <a href="#/" data-nav="suche"><span aria-hidden="true">🔍</span><span data-i18n="nav.suche">Suche</span></a>
+    <a href="#/kategorien" data-nav="kategorien"><span aria-hidden="true">🗂️</span><span data-i18n="nav.kategorien">Stöbern</span></a>
+    <a href="#/alle" data-nav="alle"><span aria-hidden="true">📋</span><span data-i18n="nav.alle">Alle Produkte</span></a>
+  </nav>
+
+  <footer class="fuss">
+    <p><span data-i18n="fuss.ein">Ein Angebot der</span> <span id="fuss-name"></span></p>
+    <p><a id="link-impressum" href="#/impressum" data-i18n="fuss.impressum">Impressum</a> ·
+       <a id="link-datenschutz" href="#/datenschutz" data-i18n="fuss.datenschutz">Datenschutz</a></p>
+  </footer>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
