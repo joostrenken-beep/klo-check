@@ -12,6 +12,8 @@ import { zaehleAufruf } from "./statistik.js";
 import { esc, AMPEL_SYMBOL, teile } from "./helfer.js";
 import { starteKamera, stoppeKamera, schlageNach, ordneZu, anzeigeName, istGueltigerCode, eintragenLink } from "./barcode.js";
 import { zeichneQuiz } from "./quiz.js";
+import { zeichneInfo } from "./info.js";
+import { tropfi, STIMMUNG_ZUR_AMPEL } from "./tropfi.js";
 
 const main = document.getElementById("inhalt");
 let T = {};          // Oberflächentexte
@@ -45,21 +47,41 @@ async function start() {
   uebersetzeStatischeTexte();
   window.addEventListener("hashchange", zeichne);
   zeichne();
+  beobachteOnline();
+  registriereServiceWorker();
+}
+
+/** Offline-Hinweis oben einblenden, wenn das Netz weg ist. */
+function beobachteOnline() {
+  const leiste = document.getElementById("offline");
+  const pruefe = () => { leiste.hidden = navigator.onLine; };
+  window.addEventListener("online", pruefe);
+  window.addEventListener("offline", pruefe);
+  pruefe();
+}
+
+/**
+ * Service Worker = kleiner Helfer im Browser, der die App-Dateien speichert.
+ * Dadurch startet die App auch ohne Internet (z. B. im Keller oder Funkloch).
+ */
+function registriereServiceWorker() {
+  if (!("serviceWorker" in navigator)) return;
+  navigator.serviceWorker.register("sw.js").catch((e) => console.warn("Service Worker:", e));
 }
 
 function wendeBrandingAn() {
   const f = config.farben;
   const css = document.documentElement.style;
-  const map = { kopf: "--kopf", kopfText: "--kopf-text", primaer: "--primaer", primaerHell: "--primaer-hell", akzent: "--akzent", akzentHell: "--akzent-hell", text: "--text", hintergrund: "--hg", gruen: "--gruen", gelb: "--gelb", rot: "--rot" };
+  const map = { kopf: "--kopf", kopfText: "--kopf-text", primaer: "--primaer", primaerHell: "--primaer-hell", akzent: "--akzent", akzentHell: "--akzent-hell", text: "--text", hintergrund: "--hg", tropfi: "--tropfi", tropfiHell: "--tropfi-hell", tropfiDunkel: "--tropfi-dunkel", gruen: "--gruen", gelb: "--gelb", rot: "--rot" };
   for (const [k, v] of Object.entries(map)) if (f[k]) css.setProperty(v, f[k]);
   document.querySelector('meta[name="theme-color"]').content = f.kopf || f.primaer;
   document.getElementById("fuss-name").textContent = config.stadtwerk.name;
   document.getElementById("link-impressum").href = config.rechtliches.impressumUrl;
   document.getElementById("link-datenschutz").href = config.rechtliches.datenschutzUrl;
-  if (config.stadtwerk.logo) {
-    const tropfen = document.querySelector(".kopf__tropfen");
-    tropfen.outerHTML = `<img class="kopf__logo" src="${esc(config.stadtwerk.logo)}" alt="">`;
-  }
+  const tropfen = document.querySelector(".kopf__tropfen");
+  tropfen.outerHTML = config.stadtwerk.logo
+    ? `<img class="kopf__logo" src="${esc(config.stadtwerk.logo)}" alt="">`
+    : tropfi("froh", "kopf__tropfi");
 }
 
 function waehleSprache() {
@@ -88,6 +110,7 @@ function zeichne() {
     kategorie: () => zeichneKategorie(id),
     alle: zeichneAlle,
     scan: zeichneScan,
+    info: () => zeichneInfo(main, config),
     quiz: () => zeichneQuiz({ main, produkte: DATEN.produkte, t, ausschluss: config.quiz?.ausschluss || [] }),
     impressum: () => zeichnePlatzhalter("fuss.impressum", "platzhalter.impressum"),
     datenschutz: () => zeichnePlatzhalter("fuss.datenschutz", "platzhalter.datenschutz"),
@@ -101,7 +124,7 @@ function zeichne() {
 }
 
 function markiereNavigation(seite) {
-  const aktiv = { "": "suche", produkt: "suche", kategorien: "kategorien", kategorie: "kategorien", scan: "scan", quiz: "quiz" }[seite];
+  const aktiv = { "": "suche", produkt: "suche", kategorien: "kategorien", kategorie: "kategorien", scan: "scan", quiz: "quiz", info: "info" }[seite];
   document.querySelectorAll("[data-nav]").forEach((a) => {
     if (a.dataset.nav === aktiv) a.setAttribute("aria-current", "page");
     else a.removeAttribute("aria-current");
@@ -111,6 +134,11 @@ function markiereNavigation(seite) {
 // ---------- Ansicht: Start mit Suche ----------
 function zeichneStart() {
   main.innerHTML = `
+    <h1 class="sr-only">${esc(t("app.titel"))} – ${esc(t("app.untertitel"))}</h1>
+    <section class="begruessung">
+      ${tropfi("winkt", "tropfi--mittel")}
+      <p class="sprechblase">${esc(t("start.begruessung"))}</p>
+    </section>
     <section class="suche" role="search">
       <form id="suchform" autocomplete="off">
         <label for="suchfeld" class="suche__label">${esc(t("suche.label"))}</label>
@@ -175,7 +203,7 @@ function produktZeileHtml(p) {
 
 function faustregelHtml() {
   return `<section class="block faustregel" aria-labelledby="fr-titel">
-      <span class="faustregel__tropfen" aria-hidden="true">💧</span>
+      ${tropfi("froh", "faustregel__tropfi")}
       <div><h2 id="fr-titel">${esc(t("faustregel.titel"))}</h2><p>${esc(t("faustregel.text"))}</p></div>
     </section>`;
 }
@@ -224,7 +252,7 @@ function zeichneProdukt(id) {
         <p>${esc(p.kanal)}</p>
       </section>
 
-      ${p.spuelbar ? `<aside class="infobox infobox--spuelbar"><h2>🏷️ ${esc(t("spuelbar.titel"))}</h2><p>${esc(t("spuelbar.text"))}</p></aside>` : ""}
+      ${p.spuelbar ? `<section class="infobox infobox--spuelbar"><h2>🏷️ ${esc(t("spuelbar.titel"))}</h2><p>${esc(t("spuelbar.text"))}</p></section>` : ""}
 
       <section class="karte__abschnitt">
         <h2>${esc(t(gruen ? "karte.wohin.gruen" : "karte.wohin"))}</h2>
@@ -235,11 +263,11 @@ function zeichneProdukt(id) {
         ${p.wohinHinweis ? `<p class="klein">${esc(p.wohinHinweis)}</p>` : ""}
       </section>
 
-      ${p.gully ? `<aside class="infobox infobox--gully"><h2>🌧️ ${esc(t("karte.gully"))}</h2><p>${esc(p.gully)}</p></aside>` : ""}
-      ${p.hinweis ? `<aside class="infobox"><h2>💡 ${esc(t("karte.tipp"))}</h2><p>${esc(p.hinweis)}</p></aside>` : ""}
+      ${p.gully ? `<section class="infobox infobox--gully"><h2>🌧️ ${esc(t("karte.gully"))}</h2><p>${esc(p.gully)}</p></section>` : ""}
+      ${p.hinweis ? `<section class="infobox"><h2>💡 ${esc(t("karte.tipp"))}</h2><p>${esc(p.hinweis)}</p></section>` : ""}
 
       <figure class="pointe">
-        <span class="pointe__tropfen" aria-hidden="true">💧</span>
+        ${tropfi(STIMMUNG_ZUR_AMPEL[p.ampel], "pointe__tropfi")}
         <blockquote><p>${esc(p.pointe)}</p></blockquote>
         <figcaption class="sr-only">${esc(t("karte.pointe"))}</figcaption>
       </figure>

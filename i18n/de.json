@@ -43,7 +43,7 @@
   "fuss.datenschutz": "Datenschutz",
   "fuss.ein": "Ein Angebot der",
   "platzhalter.impressum": "Hier kommt das Impressum des Stadtwerks hin (Platzhalter).",
-  "platzhalter.datenschutz": "Hier kommt die Datenschutzerklärung hin (Platzhalter). Die App speichert keine personenbezogenen Daten und setzt keine Cookies.",
+  "platzhalter.datenschutz": "Hier kommt die Datenschutzerklärung des Stadtwerks hin (Platzhalter). Zur Orientierung: Die App setzt keine Cookies und speichert keine personenbezogenen Daten. Auf dem Gerät gespeichert werden nur die App-Dateien (für die Offline-Nutzung), der Quiz-Rekord und ggf. die gewählte Sprache. Beim Barcode-Scan wird nur die Barcode-Nummer an die freien Datenbanken Open Food Facts / Open Beauty Facts / Open Products Facts / Open Pet Food Facts (Open Food Facts e. V., Frankreich) gesendet; das Kamerabild verlässt das Gerät nicht.",
   "laden": "Lade …",
   "fehler.laden": "Die Daten konnten nicht geladen werden. Bitte Seite neu laden.",
   "nav.scan": "Scannen",
@@ -90,5 +90,8 @@
   "quiz.nachlesen": "Das solltest du nachlesen:",
   "quiz.teilen": "Ergebnis teilen",
   "quiz.nochmal": "Nochmal spielen",
-  "quiz.teilText": "Ich habe beim Klo-Check-Quiz {p} von {n} Punkten geschafft! 💧 Schaffst du mehr?"
+  "quiz.teilText": "Ich habe beim Klo-Check-Quiz {p} von {n} Punkten geschafft! 💧 Schaffst du mehr?",
+  "nav.info": "Info",
+  "start.begruessung": "Hallo, ich bin Tropfi! Sag mir, was du loswerden willst – ich verrate dir, ob es ins Klo darf.",
+  "offline.hinweis": "Du bist offline – Suche, Quiz und Infos funktionieren trotzdem."
 }

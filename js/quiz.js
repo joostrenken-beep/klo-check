@@ -4,6 +4,7 @@
 //  (wie die Ampel). Nach jeder Antwort gibt es die Erklärung.
 // =====================================================================
 import { esc, AMPEL_SYMBOL, teile, mische } from "./helfer.js";
+import { tropfi, STIMMUNG_ZUR_AMPEL } from "./tropfi.js";
 
 const ANZAHL = 10;
 // Mischung pro Runde: ein paar grüne und gelbe, der Rest rot
@@ -39,7 +40,7 @@ function zeigeStart() {
   const best = bestwert();
   ctx.main.innerHTML = `
     <section class="quiz quiz--start">
-      <span class="quiz__tropfen" aria-hidden="true">💧</span>
+      ${tropfi("winkt", "tropfi--gross")}
       <h1>${esc(t("quiz.titel"))}</h1>
       <p>${esc(t("quiz.intro", { n: ANZAHL }))}</p>
       ${best ? `<p class="klein">${esc(t("quiz.bestwert", { p: best, n: ANZAHL }))}</p>` : ""}
@@ -101,7 +102,7 @@ function beantworte(antwort) {
     <div class="feedback feedback--${richtig ? "ja" : "nein"}">
       <p class="feedback__titel">${esc(richtig ? t("quiz.richtig") : t("quiz.falsch", { antwort: t(`ampel.${p.ampel}`) }))}</p>
       <p>${esc(p.kanal)}</p>
-      <p class="feedback__pointe"><span aria-hidden="true">💧</span> ${esc(p.pointe)}</p>
+      <div class="feedback__pointe">${tropfi(richtig ? "froh" : STIMMUNG_ZUR_AMPEL[p.ampel], "pointe__tropfi")}<p>${esc(p.pointe)}</p></div>
       <button class="knopf knopf--gross" id="quiz-weiter">${esc(t(letzte ? "quiz.auswertung" : "quiz.weiter"))}</button>
     </div>`;
   const weiter = document.getElementById("quiz-weiter");
@@ -130,7 +131,7 @@ function zeigeErgebnis() {
   speichereBestwert(punkte);
   ctx.main.innerHTML = `
     <section class="quiz quiz--ergebnis">
-      <span class="quiz__tropfen" aria-hidden="true">${punkte === n ? "🏆" : "💧"}</span>
+      ${tropfi(punkte === n ? "jubel" : punkte / n >= 0.7 ? "froh" : punkte / n >= 0.4 ? "skeptisch" : "traurig", "tropfi--gross")}
       <h1>${esc(t("quiz.ergebnis", { p: punkte, n }))}</h1>
       <p class="quiz__urteil">${esc(t(bewertung(punkte, n)))}</p>
       ${fehler.length ? `<h2>${esc(t("quiz.nachlesen"))}</h2>
