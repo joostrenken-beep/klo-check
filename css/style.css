@@ -10,6 +10,9 @@
   --primaer-hell: #e1f5fe;
   --akzent: #6ab023;        /* saftiges Grün, nur Schmuck */
   --akzent-hell: #eef8e3;
+  --tropfi: #29a8e8;
+  --tropfi-hell: #8fd8f8;
+  --tropfi-dunkel: #0277bd;
   --text: #12263a;
   --text-leise: #3d5468;
   --hg: #f3fbff;
@@ -59,13 +62,29 @@ main:focus-visible { outline: none; }
   padding: calc(.75rem + env(safe-area-inset-top)) 1rem .75rem;
 }
 .kopf__marke { display: flex; align-items: center; gap: .6rem; color: inherit; text-decoration: none; max-width: var(--max); margin: 0 auto; }
-.kopf__tropfen { font-size: 2rem; }
+.kopf__tropfi { width: 2.6rem; height: 3.1rem; flex: none; }
 .kopf__logo { height: 2.5rem; }
 .kopf__titel { display: block; font-weight: 800; font-size: 1.35rem; letter-spacing: .01em; }
 .kopf__unter { display: block; font-size: .9rem; }
 
 main { max-width: var(--max); margin: 0 auto; padding: 1rem; outline: none; }
 .laden { text-align: center; color: var(--text-leise); }
+
+/* ---------- Tropfi (Maskottchen) ---------- */
+.tropfi { display: block; flex: none; overflow: visible; }
+.tropfi--mittel { width: 5.5rem; height: 6.6rem; }
+.tropfi--gross { width: 8rem; height: 9.6rem; margin: .5rem auto 0; }
+.tropfi__winkarm { transform-origin: 85px 80px; animation: winken 1.6s ease-in-out 3; }
+@keyframes winken { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(14deg); } 75% { transform: rotate(-10deg); } }
+
+.begruessung { display: flex; align-items: flex-end; gap: .5rem; margin: .25rem 0 1.25rem; }
+.sprechblase {
+  position: relative; margin: 0 0 1.5rem; padding: .8rem 1rem;
+  background: var(--flaeche); border: 2px solid var(--tropfi-hell); border-radius: 18px 18px 18px 4px;
+  font-weight: 600; box-shadow: var(--schatten);
+}
+
+.offline-leiste { margin: 0; padding: .5rem 1rem; text-align: center; background: #fff3cd; color: #5c4400; font-weight: 600; font-size: .9rem; }
 
 /* ---------- Suche ---------- */
 .suche__label { display: block; font-weight: 700; font-size: 1.2rem; margin-bottom: .5rem; }
@@ -87,7 +106,7 @@ main { max-width: var(--max); margin: 0 auto; padding: 1rem; outline: none; }
   background: var(--primaer); color: #fff;
   text-decoration: none; cursor: pointer;
 }
-.knopf--hell { background: var(--primaer-hell); color: var(--primaer); }
+.knopf--hell { background: var(--primaer-hell); color: #01579b; }
 
 /* ---------- Listen & Kacheln ---------- */
 .liste { list-style: none; padding: 0; margin: .75rem 0; display: grid; gap: .5rem; }
@@ -132,7 +151,7 @@ main { max-width: var(--max); margin: 0 auto; padding: 1rem; outline: none; }
 .kachel__anzahl { font-size: .8rem; color: var(--text-leise); }
 
 .faustregel { display: flex; gap: .75rem; align-items: flex-start; background: var(--akzent-hell); border-left: 6px solid var(--akzent); padding: 1rem; border-radius: var(--radius); }
-.faustregel__tropfen { font-size: 2.4rem; }
+.faustregel__tropfi { width: 3.2rem; height: 3.85rem; }
 .faustregel p { margin: 0; }
 
 .hinweisbox { background: var(--flaeche); border: 2px dashed var(--rahmen); padding: 1rem; border-radius: var(--radius); }
@@ -171,7 +190,7 @@ main { max-width: var(--max); margin: 0 auto; padding: 1rem; outline: none; }
 .infobox--gully { background: #e8f1fb; border-left-color: var(--primaer); }
 
 .pointe { display: flex; gap: .75rem; align-items: center; margin: 1.5rem 0 1rem; }
-.pointe__tropfen { font-size: 2.6rem; }
+.pointe__tropfi { width: 3.6rem; height: 4.3rem; }
 .pointe blockquote { margin: 0; position: relative; background: var(--primaer-hell); padding: .8rem 1rem; border-radius: 16px; font-weight: 600; font-style: italic; }
 .pointe blockquote p { margin: 0; }
 
@@ -203,7 +222,6 @@ main { max-width: var(--max); margin: 0 auto; padding: 1rem; outline: none; }
 .knopfreihe { display: grid; gap: .6rem; margin-top: 1.5rem; }
 .quiz--start, .quiz--ergebnis { text-align: center; }
 .quiz--ergebnis .liste { text-align: left; }
-.quiz__tropfen { font-size: 4rem; display: block; margin-top: 1rem; }
 .quiz__urteil { font-size: 1.15rem; font-weight: 600; }
 .quiz__kopf { display: flex; justify-content: space-between; font-weight: 700; color: var(--text-leise); }
 .fortschritt { height: .6rem; background: var(--primaer-hell); border-radius: 999px; margin: .4rem 0 1.25rem; overflow: hidden; }
@@ -234,7 +252,38 @@ main { max-width: var(--max); margin: 0 auto; padding: 1rem; outline: none; }
 .feedback--ja { border-top-color: var(--gruen); }
 .feedback--nein { border-top-color: var(--rot); }
 .feedback__titel { font-size: 1.25rem; font-weight: 800; margin-top: 0; }
-.feedback__pointe { font-style: italic; font-weight: 600; }
+.feedback__pointe { display: flex; gap: .6rem; align-items: center; font-style: italic; font-weight: 600; }
+.feedback__pointe p { margin: 0; }
+
+/* ---------- Infoseite ---------- */
+.info-kopf { display: flex; gap: .75rem; align-items: center; }
+.info-kopf h1 { margin: 0 0 .25rem; }
+.info-kopf p { margin: 0; }
+.weg { list-style: none; padding: 0; margin: 1.5rem 0; position: relative; }
+/* das "Rohr", das alle Stationen verbindet */
+.weg::before {
+  content: ""; position: absolute; left: 2.15rem; top: 2rem; bottom: 2rem; width: .9rem;
+  background: repeating-linear-gradient(180deg, var(--tropfi-hell) 0 14px, var(--tropfi) 14px 28px);
+  border: 2px solid var(--tropfi-dunkel); border-radius: 999px;
+  background-size: 100% 28px; animation: fliessen 1.2s linear infinite;
+}
+@keyframes fliessen { from { background-position: 0 0; } to { background-position: 0 28px; } }
+.station { position: relative; display: flex; gap: .9rem; align-items: flex-start; margin-bottom: 1rem; }
+.station__bild {
+  flex: none; width: 5.2rem; height: 5.2rem; display: grid; place-items: center; z-index: 1;
+  background: var(--flaeche); border: 3px solid var(--tropfi-dunkel); border-radius: 50%; box-shadow: var(--schatten);
+}
+.station__bild svg { width: 3.4rem; height: 3.4rem; }
+.station__text { background: var(--flaeche); border-radius: var(--radius); box-shadow: var(--schatten); padding: .75rem 1rem; flex: 1; }
+.station__text h2 { display: flex; align-items: center; gap: .4rem; font-size: 1.05rem; }
+.station__text p { margin: 0; }
+.station__nr { display: inline-grid; place-items: center; width: 1.6rem; height: 1.6rem; border-radius: 50%; background: var(--akzent); color: #0b2f4a; font-size: .85rem; font-weight: 800; flex: none; }
+.trennsystem__grafik { width: 100%; height: auto; max-width: 26rem; display: block; margin: .5rem auto; background: var(--flaeche); border-radius: 10px; }
+.trennsystem p { margin-top: .5rem; }
+.fakten { padding-left: 1.2rem; }
+.fakten li { margin: .3rem 0; }
+.kontakt { background: var(--flaeche); border-radius: var(--radius); box-shadow: var(--schatten); padding: 1rem 1.1rem; }
+.kontakt__knoepfe { display: flex; flex-wrap: wrap; gap: .5rem; }
 
 /* ---------- Navigation unten (Daumen-freundlich) ---------- */
 .leiste {
@@ -243,7 +292,7 @@ main { max-width: var(--max); margin: 0 auto; padding: 1rem; outline: none; }
   background: var(--flaeche); border-top: 1px solid var(--rahmen);
   padding: .3rem 0 calc(.3rem + env(safe-area-inset-bottom));
 }
-.leiste a { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: .1rem; padding: .35rem; min-height: 3.25rem; font-size: .8rem; color: var(--text-leise); text-decoration: none; }
+.leiste a { flex: 1; min-width: 0; text-align: center; display: flex; flex-direction: column; align-items: center; gap: .1rem; padding: .35rem; min-height: 3.25rem; font-size: .8rem; color: var(--text-leise); text-decoration: none; }
 .leiste a span:first-child { font-size: 1.35rem; }
 .leiste a[aria-current="page"] { color: var(--primaer); font-weight: 700; box-shadow: inset 0 4px 0 var(--akzent); }
 .chip:hover, .kachel:hover { border-color: var(--akzent); }
@@ -256,7 +305,7 @@ main { max-width: var(--max); margin: 0 auto; padding: 1rem; outline: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  * { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
+  *, *::before { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
 }
 
 @media print {

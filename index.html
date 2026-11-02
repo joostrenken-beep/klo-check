@@ -6,6 +6,13 @@
   <title>Klo-Check – Darf das ins Klo?</title>
   <meta name="description" content="Prüfe in Sekunden, ob etwas ins Klo oder in den Abfluss darf – und wohin es stattdessen gehört.">
   <meta name="theme-color" content="#8fd8f8">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Klo-Check">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -21,6 +28,8 @@
     </a>
   </header>
 
+  <p id="offline" class="offline-leiste" role="status" hidden>📴 <span data-i18n="offline.hinweis">Du bist offline – Suche, Quiz und Infos funktionieren trotzdem.</span></p>
+
   <main id="inhalt" tabindex="-1">
     <p class="laden" data-i18n="laden">Lade …</p>
   </main>
@@ -30,6 +39,7 @@
     <a href="#/scan" data-nav="scan"><span aria-hidden="true">📷</span><span data-i18n="nav.scan">Scannen</span></a>
     <a href="#/quiz" data-nav="quiz"><span aria-hidden="true">🎯</span><span data-i18n="nav.quiz">Quiz</span></a>
     <a href="#/kategorien" data-nav="kategorien"><span aria-hidden="true">🗂️</span><span data-i18n="nav.kategorien">Stöbern</span></a>
+    <a href="#/info" data-nav="info"><span aria-hidden="true">💧</span><span data-i18n="nav.info">Info</span></a>
   </nav>
 
   <footer class="fuss">

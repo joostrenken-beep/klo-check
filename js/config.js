@@ -24,12 +24,27 @@ export default {
     akzent: "#6ab023",         // Saftiges Grün – nur als Schmuck (Streifen, Rahmen)
     akzentHell: "#eef8e3",     // helles Grün für Flächen
     text: "#12263a",
+    tropfi: "#29a8e8",         // Maskottchen: Körper
+    tropfiHell: "#8fd8f8",     //             Glanz oben
+    tropfiDunkel: "#0277bd",   //             Umriss und Arme
     hintergrund: "#f3fbff",
     // Ampel – bewusst kräftig und mit Symbol, nicht nur über die Farbe erkennbar.
     // Das Ampel-Grün ist absichtlich dunkler als das Schmuck-Grün.
     gruen: "#1e7d32",
     gelb: "#a35f00",
     rot: "#c62828",
+  },
+
+  // ---------- Zahlen für die Infoseite ("Wusstest du?") ----------
+  // BITTE PRÜFEN – übernommen aus der Präsentation zum Sanierungsprogramm.
+  // Ganzen Block auf null setzen, um ihn auszublenden.
+  zahlen: {
+    schmutzwasserKm: 140,
+    regenwasserKm: 100,
+    extra: [
+      "Ein einziges Feuchttuch zerfällt im Kanal nicht – auch nach Tagen nicht.",
+      "Jede Pumpenstörung durch Verzopfungen bezahlen am Ende alle über die Abwassergebühr.",
+    ],
   },
 
   // ---------- Kontakt (Infoseite, Fußzeile) ----------

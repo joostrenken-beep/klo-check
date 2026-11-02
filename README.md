@@ -4,8 +4,10 @@ Web-App (PWA), mit der Bürgerinnen und Bürger in Sekunden prüfen, ob etwas in
 oder in den Abfluss darf – mit Erklärung, was im Kanal passiert, wohin es stattdessen
 gehört, und einer Pointe von Tropfi, dem Wassertropfen.
 
-> **Stand: Meilenstein 2** – Datenbank-Entwurf, Suche, Ergebnis-Karte, Barcode-Scan, Quiz.
-> Design-Feinschliff, Offline-Fähigkeit und Infoseite folgen in Meilenstein 3.
+> **Stand: Meilenstein 3 (Phase 1 komplett)** – Suche, Ergebnis-Karte, Barcode-Scan, Quiz,
+> Infoseite, Maskottchen Tropfi, offline nutzbar und auf dem Handy installierbar.
+>
+> **Live:** <https://joostrenken-beep.github.io/klo-check/>
 
 ---
 
@@ -26,6 +28,10 @@ Dann im Browser öffnen: <http://localhost:8000>
 **Variante B – Visual Studio Code:** Erweiterung „Live Server“ installieren,
 `index.html` öffnen, unten rechts auf „Go Live“ klicken.
 
+**Tipp beim Ändern:** Wegen des Offline-Speichers (Service Worker) siehst du Änderungen erst
+nach **zweimaligem** Neuladen. In Chrome geht es bequemer: F12 → Reiter „Application“ →
+„Service workers“ → Haken bei **„Update on reload“**.
+
 **Auf dem Handy testen:** Handy und Computer im selben WLAN, dann am Handy
 `http://<IP-des-Computers>:8000` öffnen. (Die Kamera für den Barcode-Scan
 funktioniert später nur über `https://` – also nach dem Veröffentlichen.)
@@ -37,6 +43,9 @@ funktioniert später nur über `https://` – also nach dem Veröffentlichen.)
 ```
 klo-check/  (Hauptordner des Repositorys)
 ├── index.html            ← die einzige HTML-Seite
+├── sw.js                 ← Service Worker: macht die App offline nutzbar
+├── manifest.webmanifest  ← App-Name, Farben, Symbole (für „Zum Home-Bildschirm“)
+├── icons/                ← App-Symbole (aus Tropfi erzeugt)
 ├── css/style.css         ← Gestaltung
 ├── js/
 │   ├── config.js         ← ⭐ Branding, Kontakt, Entsorgungswege (hier anpassen!)
@@ -45,6 +54,8 @@ klo-check/  (Hauptordner des Repositorys)
 │   ├── daten.js          ← lädt Produkte und Texte (inkl. Übersetzungen)
 │   ├── barcode.js        ← Kamera, Nachschlagen, Zuordnung
 │   ├── quiz.js           ← Quiz „Klo oder nicht Klo?“
+│   ├── info.js           ← Infoseite „Vom Klo zur Kläranlage“
+│   ├── tropfi.js         ← das Maskottchen als Zeichnung (SVG), mit Stimmungen
 │   ├── helfer.js         ← kleine gemeinsame Hilfsfunktionen
 │   └── statistik.js      ← Phase 2, derzeit ausgeschaltet
 ├── data/
@@ -135,7 +146,17 @@ Die **erste** passende Regel gewinnt – spezielle Regeln also weiter oben einso
 Produkte, die nicht ins Quiz sollen (z. B. für Schulklassen), stehen in `js/config.js`
 unter `quiz.ausschluss`. Der persönliche Rekord wird nur im Browser des Geräts gespeichert.
 
-## 6. Branding für ein anderes Stadtwerk
+## 6. Infoseite und Maskottchen
+
+- **Infoseite** (`#/info`): Weg vom Klo über Kanal, Pumpwerk und Kläranlage zurück in den Fluss,
+  Erklärung Trennsystem (Gully → Bach) und Kontakt. Die Texte der Stationen stehen in `js/info.js`,
+  die Zahlen („Wusstest du?“) und Kontaktdaten in `js/config.js` (`zahlen`, `kontakt`).
+- **Tropfi** ist eine Zeichnung im Code (`js/tropfi.js`) mit den Stimmungen *froh, winkt, skeptisch,
+  entsetzt, jubel, traurig*. Auf der Karte passt die Stimmung zur Ampel (grün → froh, gelb →
+  skeptisch, rot → entsetzt). Farben in `config.js` unter `farben.tropfi…`.
+- Wer ein **eigenes Logo** einträgt (`stadtwerk.logo`), ersetzt Tropfi in der Kopfzeile.
+
+## 7. Branding für ein anderes Stadtwerk
 
 Alles in `js/config.js`: Name, Farben, Logo (Datei in `img/` legen und Pfad eintragen),
 Kontakt, Links zu Impressum und Datenschutz, Entsorgungswege.
@@ -148,7 +169,7 @@ Farben – worauf achten?
 
 ---
 
-## 7. Weitere Sprachen
+## 8. Weitere Sprachen
 
 1. `i18n/de.json` kopieren nach z. B. `i18n/en.json` und die Texte rechts übersetzen.
 2. Optional `data/produkte.en.json` anlegen – nur die Texte, Ampel und Entsorgungsweg
@@ -161,9 +182,43 @@ Farben – worauf achten?
 
 ---
 
-## 8. Veröffentlichen (GitHub Pages)
+## 9. Veröffentlichen (GitHub Pages)
 
-Folgt ausführlich in Meilenstein 3.
+**Einmalig einrichten** (ist bereits erledigt):
+Repository → **Settings → Pages** → Source „Deploy from a branch“ → Branch **`main`**, Ordner **`/ (root)`** → Save.
+
+**Änderungen veröffentlichen** – zwei Wege:
+
+*a) Direkt im Browser (am einfachsten, z. B. für `produkte.json`):*
+1. Auf github.com die Datei öffnen, oben rechts auf den **Stift ✏️** klicken.
+2. Ändern, unten auf **„Commit changes…“**. Bei „Commit directly to the main branch“ bestätigen.
+3. Nach 1–2 Minuten ist die Änderung online (Status unter dem Reiter **Actions**: grüner Haken = fertig).
+
+*b) Über den Computer (für größere Änderungen):*
+```bash
+git pull                      # neuesten Stand holen
+# … Dateien ändern, lokal testen (siehe Abschnitt 1) …
+git add .
+git commit -m "Beschreibung der Änderung"
+git push
+```
+
+**Wichtig – Offline-Speicher:** Die App speichert sich auf den Handys. Neue Inhalte erscheinen dort
+deshalb erst beim **übernächsten** Öffnen (beim ersten Öffnen wird im Hintergrund aktualisiert).
+Wenn Dateien **hinzukommen oder wegfallen**, in `sw.js` die Liste `DATEIEN` anpassen und
+`VERSION` hochzählen (z. B. `"klocheck-v2"`).
+
+**Hinweis:** Mit einem kostenlosen GitHub-Konto funktioniert Pages nur bei öffentlichen
+Repositories. Für einen dauerhaften Betrieb empfiehlt sich später eine eigene Adresse
+(z. B. `klo-check.stadtwerke-….de`) – das lässt sich unter Settings → Pages → „Custom domain“ einstellen.
+
+## 10. Auf dem Handy installieren
+
+- **iPhone (Safari):** Seite öffnen → Teilen-Knopf (Quadrat mit Pfeil) → **„Zum Home-Bildschirm“** → Hinzufügen.
+- **Android (Chrome):** Seite öffnen → Menü ⋮ → **„App installieren“** bzw. „Zum Startbildschirm hinzufügen“.
+
+Danach startet Klo-Check wie eine App, ohne Adressleiste – und funktioniert auch ohne Internet
+(nur der Barcode-Scan braucht eine Verbindung).
 
 ---
 
